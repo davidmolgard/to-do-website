@@ -1,10 +1,10 @@
 import { Container } from "react-bootstrap";
-import HighlightHeader from "./highlightHeader";
+import HighlightHeader, { colors, highlightTypes } from "./highlightHeader";
 
 function Home() {
   return (
 	<Container>
-		<HighlightHeader text={"Homepage"} href={undefined}></HighlightHeader>
+		<HighlightHeader text={"Homepage"} href={highlightTypes.squiggle} hue={colors.purple}></HighlightHeader>
 		<h3>Keep all your things in one place!</h3>
 	</Container>
   );

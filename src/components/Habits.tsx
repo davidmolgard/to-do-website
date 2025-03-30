@@ -1,9 +1,10 @@
 import { Container } from "react-bootstrap";
+import HighlightHeader, { highlightTypes, colors } from "./highlightHeader";
 
 function Habits() {
   return (
 	<Container>
-		<h1>Habit Tracker</h1>
+		<HighlightHeader text={"Habit Tracker"} href={highlightTypes.block} hue={colors.orange}></HighlightHeader>
 		<div>Sample text</div>
 	</Container>
   );

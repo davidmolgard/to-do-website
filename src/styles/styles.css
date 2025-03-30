@@ -11978,8 +11978,9 @@ body {
 
 .highlightHeader {
   position: relative;
+  height: 50px;
 }
-.highlightHeader .highlight, .highlightHeader .highlightedText {
+.highlightHeader .highlight {
   position: absolute;
 }
 .highlightHeader .highlight {
