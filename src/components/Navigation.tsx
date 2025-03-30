@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 
 function Navigation() {
   return (
-    <Navbar expand="md" fixed="top" bg="secondary">
+    <Navbar className="mb-3" expand="md" bg="secondary">
       <Container>
-        <Navbar.Brand href="#">
+        <Navbar.Brand href="/">
           <i className="bi bi-pencil-square pe-3"></i>
           Schedule Application
         </Navbar.Brand>
@@ -19,7 +19,11 @@ function Navigation() {
             <NavLink className="nav-link" to="/todo">To-Do</NavLink>
           </Nav>
           <Nav className="ms-auto">
-            <Button className="bg-accent">Login</Button>
+			<NavLink to="/login">
+            	<Button className="bg-accent">
+					Login
+				</Button>
+			</NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>

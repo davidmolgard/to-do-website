@@ -1,0 +1,19 @@
+.highlightHeader {
+	position: relative;
+	
+	.highlight,.highlightedText {
+		position: absolute;
+	}
+
+	.highlight {
+		height: 100%;
+		image {
+			width: 100%;
+		}
+	}
+
+	.highlightedText {
+		width: 100%;
+		text-align: center;
+	}
+}

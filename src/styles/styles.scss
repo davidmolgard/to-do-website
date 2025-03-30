@@ -5,7 +5,7 @@
 @import "../../node_modules/bootstrap/scss/functions";
 
 // 2. Include any default variable overrides here
-@import "./theme.scss";
+@import "./variables.scss";
 
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "../../node_modules/bootstrap/scss/variables";
@@ -16,5 +16,7 @@
 // 5. Include remainder of required parts
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
-// Custom styles
+// Import custom styles
+@import "./app.scss";
 @import "./navigation.scss";
+@import "./highlightHeader.scss";
