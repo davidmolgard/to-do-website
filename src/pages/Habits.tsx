@@ -14,7 +14,7 @@
 
 import { useState } from "react";
 import { Container, Form, Button, ListGroup, Modal, ToggleButtonGroup, ToggleButton, Row, Col } from "react-bootstrap";
-import HighlightHeader, { colors, highlightTypes } from "./highlightHeader";
+import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
 
 interface Habit {
   id: number;

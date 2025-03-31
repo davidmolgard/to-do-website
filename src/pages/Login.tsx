@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import HighlightHeader, { colors, highlightTypes } from "./highlightHeader";
+import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
 
 function Login() {
   return (

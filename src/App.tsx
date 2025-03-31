@@ -1,11 +1,11 @@
-import Home from "./components/Home";
-import Navigation from "./components/Navigation";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Schedule from "./components/Schedule";
-import Login from "./components/Login";
-import Goals from "./components/Goals";
-import Habits from "./components/Habits";
-import Todo from "./components/Todo";
+import Navigation from "./components/Navigation";
+import Home from "./pages/Home";
+import Schedule from "./pages/Schedule";
+import Login from "./pages/Login";
+import Goals from "./pages/Goals";
+import Habits from "./pages/Habits";
+import Todo from "./pages/Todo";
 
 function App() {
   return (

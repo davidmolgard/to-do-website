@@ -14,7 +14,7 @@
 
 import { useState } from "react";
 import { Container, Form, Button, ListGroup, Row, Col, ButtonGroup, Modal, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
-import HighlightHeader, { colors, highlightTypes } from "./highlightHeader";
+import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
 
 interface Task {
   id: number;
