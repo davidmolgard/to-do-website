@@ -4,8 +4,8 @@ import HighlightHeader, { colors, highlightTypes } from "../components/highlight
 function Schedule() {
   return (
 	<Container>
-		<HighlightHeader text={"Schedule"} href={highlightTypes.block} hue={colors.pink}></HighlightHeader>
-		<div>Sample text</div>
+		<HighlightHeader text={"Schedule"} href={highlightTypes.block} hue={colors.lightblue}></HighlightHeader>
+		
 	</Container>
   );
 }

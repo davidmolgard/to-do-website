@@ -1,17 +1,3 @@
-// import { Container } from "react-bootstrap";
-// import HighlightHeader, { colors, highlightTypes } from "./highlightHeader";
-
-// function Todo() {
-//   return (
-// 	<Container>
-// 		<HighlightHeader text={"To-Do List"} href={highlightTypes.block} hue={colors.yellow}></HighlightHeader>
-// 		<div>Sample text</div>
-// 	</Container>
-//   );
-// }
-
-// export default Todo;
-
 import { useState } from "react";
 import { Container, Form, Button, ListGroup, Row, Col, ButtonGroup, Modal, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
