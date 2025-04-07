@@ -12,6 +12,7 @@
 
 // export default Habits;
 
+import { useAppData } from "../AppDataContext";
 import { useState } from "react";
 import { Container, Form, Button, ListGroup, Modal, ToggleButtonGroup, ToggleButton, Row, Col } from "react-bootstrap";
 import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
@@ -24,7 +25,7 @@ interface Habit {
 }
 
 function Habits() {
-  const [habits, setHabits] = useState<Habit[]>([]);
+  const { habits, setHabits } = useAppData();
   const [newHabit, setNewHabit] = useState("");
   const [newHabitType, setNewHabitType] = useState<"good" | "bad">("good");
   const [showAddModal, setShowAddModal] = useState(false);
