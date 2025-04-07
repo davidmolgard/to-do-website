@@ -9,9 +9,10 @@ import Todo from "./pages/Todo";
 
 function App() {
   return (
-	<Router>
+	<Router basename={import.meta.env.BASE_URL} >
 		<Navigation></Navigation>
 		<Routes>
+			<Route index element={<Home/>} />
 			<Route path="/" element={<Home/>} />
 			<Route path="/schedule" element={<Schedule/>} />
 			<Route path="/goals" element={<Goals/>} />
