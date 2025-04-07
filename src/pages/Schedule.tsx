@@ -9,13 +9,6 @@ import {
 } from "react-bootstrap";
 import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
 
-interface Appointment {
-  id: number;
-  title: string;
-  time: string;
-  date: string; // ISO format
-}
-
 function Schedule() {
 	const { appointments, setAppointments } = useAppData();
   const [weekOffset, setWeekOffset] = useState(0);
@@ -66,7 +59,7 @@ function Schedule() {
       </div>
 
       <div className="horizontal-week">
-        {currentWeekDates.map((date, index) => {
+        {currentWeekDates.map((date) => {
           const dateStr = date.toISOString().split("T")[0];
           const isSelected = dateStr === selectedDateStr;
           const dayLabel = date.toLocaleDateString(undefined, {

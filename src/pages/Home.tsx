@@ -1,28 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useAppData } from "../AppDataContext";
 import { Container, Row, Col, Card, ListGroup } from "react-bootstrap";
 import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
-
-// Placeholder for future shared state integration
-interface Appointment {
-  id: number;
-  title: string;
-  time: string;
-  date: string; // ISO date string
-}
-
-interface Task {
-  id: number;
-  text: string;
-  completed: boolean;
-  today: boolean;
-}
-
-interface Goal {
-  id: number;
-  name: string;
-  log: { [date: string]: boolean };
-}
 
 function Home() {
   // For now, sample/mock data. Replace with Context or props later.
