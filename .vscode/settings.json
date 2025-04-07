@@ -1,0 +1,6 @@
+{
+	"liveSassCompile.settings.generateMap": false,
+	"liveSassCompile.settings.includeItems": ["/src/styles/styles.scss"],
+	"liveSassCompile.settings.watchOnLaunch": false,
+	"liveSassCompile.settings.compileOnWatch": true
+}
