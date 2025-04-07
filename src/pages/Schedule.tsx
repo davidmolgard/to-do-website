@@ -6,11 +6,8 @@ import {
   Modal,
   Form,
   Card,
-  Row,
-  Col,
 } from "react-bootstrap";
 import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
-import "../styles/schedule.scss"; // We'll add custom styles here
 
 interface Appointment {
   id: number;
