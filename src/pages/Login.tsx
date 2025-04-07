@@ -154,7 +154,7 @@ function Login() {
   };
 
   return (
-    <Container className="mt-4" style={{ maxWidth: "500px" }}>
+    <Container className="login mt-4" style={{ maxWidth: "500px" }}>
       <HighlightHeader
         text={isCreatingAccount ? "Create Account" : "Login"}
         href={highlightTypes.line}

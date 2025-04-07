@@ -11972,6 +11972,23 @@ body {
   background-repeat: repeat;
 }
 
+.homepage .card-link {
+  text-decoration: none;
+  color: #001B29;
+}
+.homepage .card-link:hover {
+  text-decoration: none;
+  color: rgba(0, 27, 41, 0.75);
+}
+.homepage .plus {
+  width: 20px;
+  height: 20px;
+}
+.homepage .plus image {
+  width: 20px;
+  height: 20px;
+}
+
 .nav-link.active {
   font-weight: 500;
 }
@@ -11992,6 +12009,11 @@ body {
 .highlightHeader .highlightedText {
   width: 100%;
   text-align: center;
+}
+
+.login .highlightHeader {
+  display: flex;
+  justify-content: center;
 }
 
 .horizontal-week {
