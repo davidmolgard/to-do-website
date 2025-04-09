@@ -7,7 +7,7 @@ function Navigation() {
       <Container>
         <Navbar.Brand href="/">
           <i className="bi bi-pencil-square pe-3"></i>
-          Schedule Application
+          MyDay
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
