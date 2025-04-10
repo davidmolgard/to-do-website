@@ -14,14 +14,65 @@
 
 import { useAppData } from "../AppDataContext";
 import { useState } from "react";
-import { Container, Form, Button, ListGroup, Modal, ToggleButtonGroup, ToggleButton, Row, Col } from "react-bootstrap";
-import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
+import {
+  Container,
+  Form,
+  Button,
+  ListGroup,
+  Modal,
+  ToggleButtonGroup,
+  ToggleButton,
+  Row,
+  Col,
+} from "react-bootstrap";
+import HighlightHeader, {
+  colors,
+  highlightTypes,
+} from "../components/highlightHeader";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 
 interface Habit {
   id: number;
   name: string;
   log: { [date: string]: boolean };
   type: "good" | "bad";
+}
+
+function getCurrentStreak(log: { [date: string]: boolean }): number {
+  let streak = 0;
+  let date = new Date();
+
+  while (true) {
+    const dateStr = date.toISOString().split("T")[0];
+    if (log[dateStr]) {
+      streak++;
+    } else {
+      break;
+    }
+    date.setDate(date.getDate() - 1);
+  }
+
+  return streak;
+}
+
+function getHistory(log: { [date: string]: boolean }): { date: string; checked: boolean }[] {
+  const history = [];
+  const today = new Date();
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+    const str = date.toISOString().split("T")[0];
+    history.push({ date: str, checked: !!log[str] });
+  }
+  return history;
 }
 
 function Habits() {
@@ -61,7 +112,10 @@ function Habits() {
 
   const renderHabitRow = (habit: Habit) => (
     <ListGroup.Item key={habit.id} className="d-flex justify-content-between align-items-center">
-      <span>{habit.name}</span>
+      <div>
+        <strong>{habit.name}</strong>
+        <span className="ms-2">🔥 {getCurrentStreak(habit.log)}</span>
+      </div>
       <Button
         variant={habit.log[todayStr] ? (habit.type === "good" ? "success" : "danger") : "outline-secondary"}
         size="sm"
@@ -72,19 +126,13 @@ function Habits() {
     </ListGroup.Item>
   );
 
-  const renderHabitStreak = (habit: Habit) => {
-    const days = Array.from({ length: 7 }, (_, i) => {
-      const date = new Date();
-      date.setDate(date.getDate() - (6 - i));
-      const str = date.toISOString().split("T")[0];
-      return { date: str, checked: habit.log[str] || false };
-    });
-
+  const renderHabitHistory = (habit: Habit) => {
+    const history = getHistory(habit.log);
     return (
-      <div key={habit.id} className="mt-3">
-        <strong>{habit.name}</strong>
+      <div key={habit.id} className="mt-2 mb-3">
+        <div><strong>{habit.name}</strong> (Past 7 Days)</div>
         <div className="d-flex gap-2 mt-1">
-          {days.map((day) => (
+          {history.map((day) => (
             <div
               key={day.date}
               style={{
@@ -108,6 +156,16 @@ function Habits() {
   const goodHabits = habits.filter(h => h.type === "good");
   const badHabits = habits.filter(h => h.type === "bad");
 
+  const getChartData = (filterType: "good" | "bad") => {
+    return habits
+      .filter(h => h.type === filterType)
+      .map(habit => {
+        const history = getHistory(habit.log);
+        const count = history.filter(h => h.checked).length;
+        return { name: habit.name, count };
+      });
+  };
+
   return (
     <Container className="mt-4" style={{ maxWidth: "800px" }}>
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -126,12 +184,43 @@ function Habits() {
         </Col>
       </Row>
 
-      {(habits.length > 0) && (
-        <div className="mt-5">
-          <h6>Streaks</h6>
-          {[...goodHabits, ...badHabits].map(renderHabitStreak)}
-        </div>
-      )}
+      <div className="mt-5">
+        <h6>Habit History (Last 7 Days)</h6>
+        <Row>
+          <Col md={6}>{goodHabits.map(renderHabitHistory)}</Col>
+          <Col md={6}>{badHabits.map(renderHabitHistory)}</Col>
+        </Row>
+      </div>
+
+      <div className="mt-5">
+        <h6>Stats (Completions in Past 7 Days)</h6>
+        <Row>
+          <Col md={6}>
+            <h6>Good Habits</h6>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={getChartData("good")}> 
+                <XAxis dataKey="name" />
+                <YAxis allowDecimals={false} />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="count" fill="#28a745" />
+              </BarChart>
+            </ResponsiveContainer>
+          </Col>
+          <Col md={6}>
+            <h6>Bad Habits</h6>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={getChartData("bad")}> 
+                <XAxis dataKey="name" />
+                <YAxis allowDecimals={false} />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="count" fill="#dc3545" />
+              </BarChart>
+            </ResponsiveContainer>
+          </Col>
+        </Row>
+      </div>
 
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)} centered>
         <Modal.Header closeButton>
