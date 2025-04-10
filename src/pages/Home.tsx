@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import { useAppData } from "../AppDataContext";
 import { Container, Row, Col, Card, ListGroup, Button } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
+// import $ from 'jquery';
+import "jquery-ui/ui/widgets/sortable.js";
+import "jquery-ui/ui/widgets/resizable.js";
+import "jquery-ui/ui/disable-selection.js";
 
 function Home() {
   // For now, sample/mock data. Replace with Context or props later.
@@ -14,7 +18,7 @@ function Home() {
     // For now, fill with mock data (or keep empty arrays)
   }, []);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const todayAppointments = appointments
     .filter((appt) => appt.date === todayStr)
@@ -24,15 +28,33 @@ function Home() {
 
   const currentGoals = goals.slice(0, 3); // Display top 3 goals
 
+  $(function () {
+    $("#sortable").sortable({
+      handle: ".column-handle",
+      connectWith: ".column",
+      placeholder: "draggable-placeholder",
+    });
+    $(".column").disableSelection();
+    $(function () {
+      $(".resizable").resizable({
+        containment: "#container",
+        maxHeight: 250,
+        maxWidth: 350,
+        minHeight: 150,
+        minWidth: 200,
+      });
+    });
+  });
+
   return (
-    <Container className="homepage mt-4">
-      <Row>
+    <Container id="container" className="homepage mt-4">
+      <Row className="sortable">
         {/* Left column: Appointments */}
         <Col md={8}>
-          <Card className="mb-4 shadow-sm">
-			<NavLink to="/schedule" className="card-link">
-            	<Card.Header className="fw-bold">Today’s Schedule</Card.Header>
-			</NavLink>
+          <Card className="resizable ui-widget-content column-handle mb-4 shadow-sm">
+            <NavLink to="/schedule" className="card-link">
+              <Card.Header className="fw-bold">Today’s Schedule</Card.Header>
+            </NavLink>
             <Card.Body>
               {todayAppointments.length > 0 ? (
                 <ListGroup>
@@ -43,13 +65,19 @@ function Home() {
                   ))}
                 </ListGroup>
               ) : (
-				<div className="d-flex justify-content-between">
-					<div className="text-muted mb-2">No appointments for today</div>
-					<Button size="sm" variant="outline-dark" onClick={() => navigate("/schedule")}>
-						<i className="bi bi-calendar-plus me-2"></i>
-						Schedule Appointment
-					</Button>
-				</div>
+                <div className="d-flex justify-content-between">
+                  <div className="text-muted mb-2">
+                    No appointments for today
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="outline-dark"
+                    onClick={() => navigate("/schedule")}
+                  >
+                    <i className="bi bi-calendar-plus me-2"></i>
+                    Schedule Appointment
+                  </Button>
+                </div>
               )}
             </Card.Body>
           </Card>
@@ -57,10 +85,10 @@ function Home() {
 
         {/* Right column: To-Do + Goals */}
         <Col md={4}>
-          <Card className="mb-4 shadow-sm">
-		  	<NavLink to="/todo" className="card-link">
-            	<Card.Header className="fw-bold">To-Do List</Card.Header>
-			</NavLink>
+          <Card className="resizable ui-widget-content column-handle mb-4 shadow-sm">
+            <NavLink to="/todo" className="card-link">
+              <Card.Header className="fw-bold">To-Do List</Card.Header>
+            </NavLink>
             <Card.Body>
               {todayTasks.length > 0 ? (
                 <ListGroup>
@@ -69,42 +97,57 @@ function Home() {
                   ))}
                 </ListGroup>
               ) : (
-				<div className="d-flex justify-content-between">
-                	<div className="text-muted mb-2">No tasks for today</div>
-					<Button size="sm" variant="outline-dark" onClick={() => navigate("/todo")}>
-						<i className="bi bi-plus-square me-2"></i>
-						Add Tasks
-					</Button>
-				</div>
+                <div className="d-flex justify-content-between">
+                  <div className="text-muted mb-2">No tasks for today</div>
+                  <Button
+                    size="sm"
+                    variant="outline-dark"
+                    onClick={() => navigate("/todo")}
+                  >
+                    <i className="bi bi-plus-square me-2"></i>
+                    Add Tasks
+                  </Button>
+                </div>
               )}
             </Card.Body>
           </Card>
 
-          <Card className="shadow-sm">
-		  	<NavLink to="/goals" className="card-link">
-            	<Card.Header className="fw-bold">Goals</Card.Header>
-			</NavLink>
+          <Card className="resizable ui-widget-content column-handle shadow-sm">
+            <NavLink to="/goals" className="card-link">
+              <Card.Header className="fw-bold">Goals</Card.Header>
+            </NavLink>
             <Card.Body>
               {currentGoals.length > 0 ? (
                 currentGoals.map((goal) => {
                   const checked = goal.log[todayStr] ?? false;
                   return (
-                    <div key={goal.id} className="mb-2 d-flex justify-content-between align-items-center">
+                    <div
+                      key={goal.id}
+                      className="mb-2 d-flex justify-content-between align-items-center"
+                    >
                       <span>{goal.name}</span>
-                      <span className={`badge bg-${checked ? "success" : "secondary"}`}>
+                      <span
+                        className={`badge bg-${
+                          checked ? "success" : "secondary"
+                        }`}
+                      >
                         {checked ? "✓ Tracked" : "Not Tracked"}
                       </span>
                     </div>
                   );
                 })
               ) : (
-				<div className="d-flex justify-content-between">
-                	<div className="text-muted">No goals yet</div>
-					<Button size="sm" variant="outline-dark" onClick={() => navigate("/goals")}>
-						<i className="bi bi-plus-square me-2"></i>
-						Add goals
-					</Button>
-				</div>
+                <div className="d-flex justify-content-between">
+                  <div className="text-muted">No goals yet</div>
+                  <Button
+                    size="sm"
+                    variant="outline-dark"
+                    onClick={() => navigate("/goals")}
+                  >
+                    <i className="bi bi-plus-square me-2"></i>
+                    Add goals
+                  </Button>
+                </div>
               )}
             </Card.Body>
           </Card>

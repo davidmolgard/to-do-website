@@ -16,9 +16,12 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@types/bootstrap": "^5.2.10",
+    "@types/jqueryui": "^1.12.24",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "gh-pages": "^6.3.0",
+    "jquery": "^3.7.1",
+    "jquery-ui": "^1.14.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
@@ -28,6 +31,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@types/jquery": "^3.5.32",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@types/react-router-bootstrap": "^0.26.6",
