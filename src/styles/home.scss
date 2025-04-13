@@ -1,6 +1,9 @@
 @import "variables";
 
 .homepage {
+	.layout {
+		max-height: 80vh;
+	}
   .card-link {
     text-decoration: none;
     color: $dark;
