@@ -6,6 +6,9 @@
     .react-grid-placeholder {
       background-color: #f3f08b;
     }
+		.drag-handle:hover {
+			cursor: move;
+		}
   }
   .card-link {
     text-decoration: none;
@@ -26,6 +29,24 @@
       height: 20px;
     }
   }
+
+	.schedule {
+		.card-header {
+			background-color: $accent-light-blue;
+		}
+	}
+
+	.goals {
+		.card-header {
+			background-color: $accent-pink;
+		}
+	}
+
+	.todo {
+		.card-header {
+			background-color: $accent-yellow;
+		}
+	}
 }
 
 .react-draggable-transparent-selection {
