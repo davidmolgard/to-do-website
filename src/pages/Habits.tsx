@@ -1,17 +1,3 @@
-// import { Container } from "react-bootstrap";
-// import HighlightHeader, { highlightTypes, colors } from "./highlightHeader";
-
-// function Habits() {
-//   return (
-// 	<Container>
-// 		<HighlightHeader text={"Habit Tracker"} href={highlightTypes.block} hue={colors.orange}></HighlightHeader>
-// 		<div>Sample text</div>
-// 	</Container>
-//   );
-// }
-
-// export default Habits;
-
 import { useAppData } from "../AppDataContext";
 import { useState } from "react";
 import {
@@ -25,10 +11,6 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import HighlightHeader, {
-  colors,
-  highlightTypes,
-} from "../components/highlightHeader";
 import {
   BarChart,
   Bar,
@@ -169,7 +151,7 @@ function Habits() {
   return (
     <Container className="mt-4" style={{ maxWidth: "800px" }}>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <HighlightHeader text="Habit Tracker" href={highlightTypes.block} hue={colors.pink} />
+        <h1>Habit Tracker</h1>
         <Button onClick={() => setShowAddModal(true)}>Add Habit</Button>
       </div>
 

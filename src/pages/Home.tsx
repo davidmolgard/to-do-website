@@ -67,10 +67,11 @@ function Home() {
 				cols={{ xl: 12, lg: 10, md: 6, sm: 4, xs: 2 }}
 				margin={[20, 20]}
 				rowHeight={40}
+				draggableHandle=".drag-handle"
 				useCSSTransforms={false}
 			>
-        <Card key={scheduleKey} className="shadow-sm">
-					<Card.Header className="fw-bold">Today’s Schedule</Card.Header>
+        <Card key={scheduleKey} className="schedule shadow-sm">
+					<Card.Header className="fw-bold drag-handle">Today’s Schedule</Card.Header>
           <Card.Body>
             {todayAppointments.length > 0 ? (
               <ListGroup>
@@ -96,8 +97,8 @@ function Home() {
           </Card.Body>
         </Card>
 
-        <Card key={goalsKey} className="shadow-sm">
-					<Card.Header className="fw-bold">Goals</Card.Header>
+        <Card key={goalsKey} className="goals shadow-sm">
+					<Card.Header className="fw-bold drag-handle">Goals</Card.Header>
           <Card.Body>
             {currentGoals.length > 0 ? (
               currentGoals.map((goal) => {
@@ -134,8 +135,8 @@ function Home() {
           </Card.Body>
         </Card>
 
-        <Card key={todoKey} className="shadow-sm">
-					<Card.Header className="fw-bold">To-Do List</Card.Header>
+        <Card key={todoKey} className="todo shadow-sm">
+					<Card.Header className="fw-bold drag-handle">To-Do List</Card.Header>
           <Card.Body>
             {todayTasks.length > 0 ? (
               <ListGroup>

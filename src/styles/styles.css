@@ -33,15 +33,15 @@
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
   --bs-primary: #F2EBEB;
-  --bs-secondary: #CFB884;
+  --bs-secondary: #EBE4A4;
   --bs-success: #006307;
-  --bs-info: #B09554;
+  --bs-info: #b09554;
   --bs-warning: #EA4600;
   --bs-danger: #B90000;
   --bs-light: #E8E7E6;
   --bs-dark: #001B29;
   --bs-primary-rgb: 242, 235, 235;
-  --bs-secondary-rgb: 207, 184, 132;
+  --bs-secondary-rgb: 235, 228, 164;
   --bs-success-rgb: 0, 99, 7;
   --bs-info-rgb: 176, 149, 84;
   --bs-warning-rgb: 234, 70, 0;
@@ -49,7 +49,7 @@
   --bs-light-rgb: 232, 231, 230;
   --bs-dark-rgb: 0, 27, 41;
   --bs-primary-text-emphasis: #615e5e;
-  --bs-secondary-text-emphasis: #534a35;
+  --bs-secondary-text-emphasis: #5e5b42;
   --bs-success-text-emphasis: #002803;
   --bs-info-text-emphasis: #463c22;
   --bs-warning-text-emphasis: #5e1c00;
@@ -57,7 +57,7 @@
   --bs-light-text-emphasis: #495057;
   --bs-dark-text-emphasis: #495057;
   --bs-primary-bg-subtle: #fcfbfb;
-  --bs-secondary-bg-subtle: #f5f1e6;
+  --bs-secondary-bg-subtle: #fbfaed;
   --bs-success-bg-subtle: #cce0cd;
   --bs-info-bg-subtle: #efeadd;
   --bs-warning-bg-subtle: #fbdacc;
@@ -65,7 +65,7 @@
   --bs-light-bg-subtle: #fcfcfd;
   --bs-dark-bg-subtle: #ced4da;
   --bs-primary-border-subtle: #faf7f7;
-  --bs-secondary-border-subtle: #ece3ce;
+  --bs-secondary-border-subtle: #f7f4db;
   --bs-success-border-subtle: #99c19c;
   --bs-info-border-subtle: #dfd5bb;
   --bs-warning-border-subtle: #f7b599;
@@ -145,7 +145,7 @@
   --bs-tertiary-bg: #2b3035;
   --bs-tertiary-bg-rgb: 43, 48, 53;
   --bs-primary-text-emphasis: #f7f3f3;
-  --bs-secondary-text-emphasis: #e2d4b5;
+  --bs-secondary-text-emphasis: #f3efc8;
   --bs-success-text-emphasis: #66a16a;
   --bs-info-text-emphasis: #d0bf98;
   --bs-warning-text-emphasis: #f29066;
@@ -153,7 +153,7 @@
   --bs-light-text-emphasis: #f8f9fa;
   --bs-dark-text-emphasis: #dee2e6;
   --bs-primary-bg-subtle: #302f2f;
-  --bs-secondary-bg-subtle: #29251a;
+  --bs-secondary-bg-subtle: #2f2e21;
   --bs-success-bg-subtle: #001401;
   --bs-info-bg-subtle: #231e11;
   --bs-warning-bg-subtle: #2f0e00;
@@ -161,7 +161,7 @@
   --bs-light-bg-subtle: #343a40;
   --bs-dark-bg-subtle: #1a1d20;
   --bs-primary-border-subtle: #918d8d;
-  --bs-secondary-border-subtle: #7c6e4f;
+  --bs-secondary-border-subtle: #8d8962;
   --bs-success-border-subtle: #003b04;
   --bs-info-border-subtle: #6a5932;
   --bs-warning-border-subtle: #8c2a00;
@@ -1950,13 +1950,13 @@ progress {
 
 .table-secondary {
   --bs-table-color: #000;
-  --bs-table-bg: #f5f1e6;
-  --bs-table-border-color: #c4c1b8;
-  --bs-table-striped-bg: #e9e5db;
+  --bs-table-bg: #fbfaed;
+  --bs-table-border-color: #c9c8be;
+  --bs-table-striped-bg: #eeeee1;
   --bs-table-striped-color: #000;
-  --bs-table-active-bg: #ddd9cf;
+  --bs-table-active-bg: #e2e1d5;
   --bs-table-active-color: #000;
-  --bs-table-hover-bg: #e3dfd5;
+  --bs-table-hover-bg: #e8e7db;
   --bs-table-hover-color: #000;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
@@ -3032,19 +3032,19 @@ textarea.form-control-lg {
 
 .btn-secondary {
   --bs-btn-color: #000;
-  --bs-btn-bg: #CFB884;
-  --bs-btn-border-color: #CFB884;
+  --bs-btn-bg: #EBE4A4;
+  --bs-btn-border-color: #EBE4A4;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #d6c396;
-  --bs-btn-hover-border-color: #d4bf90;
-  --bs-btn-focus-shadow-rgb: 176, 156, 112;
+  --bs-btn-hover-bg: #eee8b2;
+  --bs-btn-hover-border-color: #ede7ad;
+  --bs-btn-focus-shadow-rgb: 200, 194, 139;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #d9c69d;
-  --bs-btn-active-border-color: #d4bf90;
+  --bs-btn-active-bg: #efe9b6;
+  --bs-btn-active-border-color: #ede7ad;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #CFB884;
-  --bs-btn-disabled-border-color: #CFB884;
+  --bs-btn-disabled-bg: #EBE4A4;
+  --bs-btn-disabled-border-color: #EBE4A4;
 }
 
 .btn-success {
@@ -3066,8 +3066,8 @@ textarea.form-control-lg {
 
 .btn-info {
   --bs-btn-color: #000;
-  --bs-btn-bg: #B09554;
-  --bs-btn-border-color: #B09554;
+  --bs-btn-bg: #b09554;
+  --bs-btn-border-color: #b09554;
   --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #bca56e;
   --bs-btn-hover-border-color: #b8a065;
@@ -3077,8 +3077,8 @@ textarea.form-control-lg {
   --bs-btn-active-border-color: #b8a065;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #B09554;
-  --bs-btn-disabled-border-color: #B09554;
+  --bs-btn-disabled-bg: #b09554;
+  --bs-btn-disabled-border-color: #b09554;
 }
 
 .btn-warning {
@@ -3167,19 +3167,19 @@ textarea.form-control-lg {
 }
 
 .btn-outline-secondary {
-  --bs-btn-color: #CFB884;
-  --bs-btn-border-color: #CFB884;
+  --bs-btn-color: #EBE4A4;
+  --bs-btn-border-color: #EBE4A4;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #CFB884;
-  --bs-btn-hover-border-color: #CFB884;
-  --bs-btn-focus-shadow-rgb: 207, 184, 132;
+  --bs-btn-hover-bg: #EBE4A4;
+  --bs-btn-hover-border-color: #EBE4A4;
+  --bs-btn-focus-shadow-rgb: 235, 228, 164;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #CFB884;
-  --bs-btn-active-border-color: #CFB884;
+  --bs-btn-active-bg: #EBE4A4;
+  --bs-btn-active-border-color: #EBE4A4;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #CFB884;
+  --bs-btn-disabled-color: #EBE4A4;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #CFB884;
+  --bs-btn-disabled-border-color: #EBE4A4;
   --bs-gradient: none;
 }
 
@@ -3201,19 +3201,19 @@ textarea.form-control-lg {
 }
 
 .btn-outline-info {
-  --bs-btn-color: #B09554;
-  --bs-btn-border-color: #B09554;
+  --bs-btn-color: #b09554;
+  --bs-btn-border-color: #b09554;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #B09554;
-  --bs-btn-hover-border-color: #B09554;
+  --bs-btn-hover-bg: #b09554;
+  --bs-btn-hover-border-color: #b09554;
   --bs-btn-focus-shadow-rgb: 176, 149, 84;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #B09554;
-  --bs-btn-active-border-color: #B09554;
+  --bs-btn-active-bg: #b09554;
+  --bs-btn-active-border-color: #b09554;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #B09554;
+  --bs-btn-disabled-color: #b09554;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #B09554;
+  --bs-btn-disabled-border-color: #b09554;
   --bs-gradient: none;
 }
 
@@ -6853,8 +6853,8 @@ textarea.form-control-lg {
   text-decoration-color: RGBA(var(--bs-secondary-rgb), var(--bs-link-underline-opacity, 1)) !important;
 }
 .link-secondary:hover, .link-secondary:focus {
-  color: RGBA(217, 198, 157, var(--bs-link-opacity, 1)) !important;
-  text-decoration-color: RGBA(217, 198, 157, var(--bs-link-underline-opacity, 1)) !important;
+  color: RGBA(239, 233, 182, var(--bs-link-opacity, 1)) !important;
+  text-decoration-color: RGBA(239, 233, 182, var(--bs-link-underline-opacity, 1)) !important;
 }
 
 .link-success {
@@ -11970,8 +11970,10 @@ textarea.form-control-lg {
   }
 }
 body {
+  width: 100%;
   background-image: url("../assets/background/dot.svg");
   background-repeat: repeat;
+  scrollbar-gutter: stable both-edges;
 }
 
 .homepage .layout {
@@ -11979,6 +11981,9 @@ body {
 }
 .homepage .layout .react-grid-placeholder {
   background-color: #f3f08b;
+}
+.homepage .layout .drag-handle:hover {
+  cursor: move;
 }
 .homepage .card-link {
   text-decoration: none;
@@ -11996,6 +12001,15 @@ body {
   width: 20px;
   height: 20px;
 }
+.homepage .schedule .card-header {
+  background-color: #afdef9;
+}
+.homepage .goals .card-header {
+  background-color: #c59fc9;
+}
+.homepage .todo .card-header {
+  background-color: #EBE4A4;
+}
 
 .react-draggable-transparent-selection {
   -webkit-user-select: none;
@@ -12003,31 +12017,26 @@ body {
           user-select: none;
 }
 
-.nav-link.active {
+.navbar {
+  background-color: #31393C;
+}
+.navbar-brand {
+  color: white;
+}
+.navbar-brand:hover {
+  color: #EBE4A4;
+}
+.navbar .nav-link {
+  color: white;
+}
+.navbar .nav-link.brand.active {
+  text-decoration: none;
+}
+.navbar .nav-link.active {
+  color: white;
   font-weight: 500;
-}
-
-.highlightHeader {
-  position: relative;
-  height: 50px;
-}
-.highlightHeader .highlight {
-  position: absolute;
-}
-.highlightHeader .highlight {
-  height: 100%;
-}
-.highlightHeader .highlight image {
-  width: 100%;
-}
-.highlightHeader .highlightedText {
-  width: 100%;
-  text-align: center;
-}
-
-.login .highlightHeader {
-  display: flex;
-  justify-content: center;
+  -webkit-text-decoration: 2px #EBE4A4 underline;
+          text-decoration: 2px #EBE4A4 underline;
 }
 
 .horizontal-week {

@@ -7,7 +7,6 @@ import {
   Form,
   Card,
 } from "react-bootstrap";
-import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
 
 function Schedule() {
 	const { appointments, setAppointments } = useAppData();
@@ -44,7 +43,6 @@ function Schedule() {
   return (
     <Container className="mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <HighlightHeader text="Weekly Schedule" href={highlightTypes.block} hue={colors.pink} />
         <div className="d-flex gap-2">
           <Button variant="outline-secondary" onClick={() => setWeekOffset(weekOffset - 1)}>
             ← Previous

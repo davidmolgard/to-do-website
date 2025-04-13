@@ -9,7 +9,6 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
 
 interface Goal {
   id: number;
@@ -95,7 +94,7 @@ function Goals() {
   return (
     <Container className="mt-4" style={{ maxWidth: "800px" }}>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <HighlightHeader text="Goals" href={highlightTypes.line} hue={colors.blue} />
+				<h1>Goals</h1>
         <Button onClick={() => setShowAddModal(true)}>Add Goal</Button>
       </div>
 
