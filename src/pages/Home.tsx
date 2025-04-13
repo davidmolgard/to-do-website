@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useAppData } from "../AppDataContext";
-import { Container, Row, Col, Card, ListGroup, Button } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Container, Card, ListGroup, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { WidthProvider, Responsive } from "react-grid-layout";
-import ReactGridLayout from "react-grid-layout";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 function Home() {
@@ -68,8 +67,9 @@ function Home() {
 				cols={{ xl: 12, lg: 10, md: 6, sm: 4, xs: 2 }}
 				margin={[20, 20]}
 				rowHeight={40}
+				useCSSTransforms={false}
 			>
-        <Card key={scheduleKey} className="mb-4 shadow-sm">
+        <Card key={scheduleKey} className="shadow-sm">
 					<Card.Header className="fw-bold">Today’s Schedule</Card.Header>
           <Card.Body>
             {todayAppointments.length > 0 ? (
@@ -134,7 +134,7 @@ function Home() {
           </Card.Body>
         </Card>
 
-        <Card key={todoKey} className="mb-4 shadow-sm">
+        <Card key={todoKey} className="shadow-sm">
 					<Card.Header className="fw-bold">To-Do List</Card.Header>
           <Card.Body>
             {todayTasks.length > 0 ? (

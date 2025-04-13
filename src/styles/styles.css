@@ -11977,6 +11977,9 @@ body {
 .homepage .layout {
   max-height: 80vh;
 }
+.homepage .layout .react-grid-placeholder {
+  background-color: #f3f08b;
+}
 .homepage .card-link {
   text-decoration: none;
   color: #001B29;
@@ -11992,6 +11995,12 @@ body {
 .homepage .plus image {
   width: 20px;
   height: 20px;
+}
+
+.react-draggable-transparent-selection {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .nav-link.active {

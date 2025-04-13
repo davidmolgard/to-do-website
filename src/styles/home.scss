@@ -1,13 +1,16 @@
 @import "variables";
 
 .homepage {
-	.layout {
-		max-height: 80vh;
-	}
+  .layout {
+    max-height: 80vh;
+    .react-grid-placeholder {
+      background-color: #f3f08b;
+    }
+  }
   .card-link {
     text-decoration: none;
     color: $dark;
-    
+
     &:hover {
       text-decoration: none;
       color: rgba($dark, 0.75);
@@ -22,5 +25,9 @@
       width: 20px;
       height: 20px;
     }
-  }  
+  }
+}
+
+.react-draggable-transparent-selection {
+	user-select: none;
 }
