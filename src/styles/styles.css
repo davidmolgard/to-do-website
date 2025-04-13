@@ -11970,8 +11970,10 @@ textarea.form-control-lg {
   }
 }
 body {
+  width: 100%;
   background-image: url("../assets/background/dot.svg");
   background-repeat: repeat;
+  scrollbar-gutter: stable both-edges;
 }
 
 .homepage .layout {
@@ -12035,29 +12037,6 @@ body {
   font-weight: 500;
   -webkit-text-decoration: 2px #EBE4A4 underline;
           text-decoration: 2px #EBE4A4 underline;
-}
-
-.highlightHeader {
-  position: relative;
-  height: 50px;
-}
-.highlightHeader .highlight {
-  position: absolute;
-}
-.highlightHeader .highlight {
-  height: 100%;
-}
-.highlightHeader .highlight image {
-  width: 100%;
-}
-.highlightHeader .highlightedText {
-  width: 100%;
-  text-align: center;
-}
-
-.login .highlightHeader {
-  display: flex;
-  justify-content: center;
 }
 
 .horizontal-week {

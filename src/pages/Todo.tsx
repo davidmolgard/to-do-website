@@ -1,21 +1,6 @@
-// import { Container } from "react-bootstrap";
-// import HighlightHeader, { colors, highlightTypes } from "./highlightHeader";
-
-// function Todo() {
-//   return (
-// 	<Container>
-// 		<HighlightHeader text={"To-Do List"} href={highlightTypes.block} hue={colors.yellow}></HighlightHeader>
-// 		<div>Sample text</div>
-// 	</Container>
-//   );
-// }
-
-// export default Todo;
-
 import { useAppData } from "../AppDataContext";
 import { useState } from "react";
 import { Container, Form, Button, ListGroup, Row, Col, ButtonGroup, Modal, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
-import HighlightHeader, { colors, highlightTypes } from "../components/highlightHeader";
 
 interface Task {
   id: number;
@@ -101,7 +86,7 @@ function Todo() {
   return (
     <Container className="mt-4" style={{ maxWidth: "800px" }}>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <HighlightHeader text="To-Do List" href={highlightTypes.block} hue={colors.yellow} />
+        <h1>To-Do List</h1>
         <Button onClick={() => setShowAddModal(true)}>Add Task</Button>
       </div>
 
