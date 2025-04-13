@@ -16,6 +16,10 @@
 // 5. Include remainder of required parts
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
+// Import react-grid-layout styles
+@import "../../node_modules/react-grid-layout/css/styles.css";
+@import "../../node_modules/react-resizable/css/styles.css";
+
 // Import custom styles
 @import "./app.scss";
 @import "./home.scss";
