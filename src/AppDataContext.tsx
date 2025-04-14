@@ -3,8 +3,10 @@ import { createContext, useContext, useState, ReactNode } from "react";
 export interface Appointment {
   id: number;
   title: string;
-  time: string;
-  date: string;
+  startTime: string; // e.g., "13:00"
+  endTime: string;   // e.g., "14:30"
+  date: string;      // YYYY-MM-DD
+  color: string;     // e.g., "blue", "red", etc.
 }
 
 export interface Task {
