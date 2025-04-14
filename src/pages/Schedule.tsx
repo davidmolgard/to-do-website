@@ -1,4 +1,5 @@
-import { useAppData } from "../AppDataContext";
+// import { useAppData } from "../AppDataContext";
+import { useDemoAppData } from "../DemoDataContext";
 import { useState } from "react";
 import {
   Container,
@@ -9,7 +10,7 @@ import {
 } from "react-bootstrap";
 
 function Schedule() {
-	const { appointments, setAppointments } = useAppData();
+	const { appointments, setAppointments } = useDemoAppData();
   const [weekOffset, setWeekOffset] = useState(0);
   const [selectedDateStr, setSelectedDateStr] = useState(getStartOfWeek(new Date(), 0)[new Date().getDay()].toISOString().split("T")[0]);
 

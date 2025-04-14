@@ -1,4 +1,5 @@
-import { useAppData } from "../AppDataContext";
+// import { useAppData } from "../AppDataContext";
+import { useDemoAppData } from "../DemoDataContext";
 import { useState } from "react";
 import {
   Container,
@@ -58,7 +59,7 @@ function getHistory(log: { [date: string]: boolean }): { date: string; checked: 
 }
 
 function Habits() {
-  const { habits, setHabits } = useAppData();
+  const { habits, setHabits } = useDemoAppData();
   const [newHabit, setNewHabit] = useState("");
   const [newHabitType, setNewHabitType] = useState<"good" | "bad">("good");
   const [showAddModal, setShowAddModal] = useState(false);
