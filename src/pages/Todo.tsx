@@ -1,6 +1,16 @@
 import { useAppData } from "../AppDataContext";
 import { useState } from "react";
-import { Container, Form, Button, ListGroup, Row, Col, ButtonGroup, Modal, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Button,
+  ListGroup,
+  ButtonGroup,
+  Modal,
+  ToggleButtonGroup,
+  ToggleButton,
+  Card,
+} from "react-bootstrap";
 
 interface Task {
   id: number;
@@ -19,27 +29,34 @@ function Todo() {
 
   const addTask = () => {
     if (!newTask.trim()) return;
-    setTasks([...tasks, { id: Date.now(), text: newTask, completed: false, today: newTaskToday }]);
+    setTasks([
+      ...tasks,
+      { id: Date.now(), text: newTask, completed: false, today: newTaskToday },
+    ]);
     setNewTask("");
     setNewTaskToday(true);
     setShowAddModal(false);
   };
 
   const toggleComplete = (id: number) => {
-    setTasks(tasks.map(task =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ));
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
   };
 
   const deleteTask = (id: number) => {
-    setTasks(tasks.filter(task => task.id !== id));
+    setTasks(tasks.filter((task) => task.id !== id));
     setEditTask(null);
   };
 
   const toggleToday = (id: number) => {
-    setTasks(tasks.map(task =>
-      task.id === id ? { ...task, today: !task.today } : task
-    ));
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, today: !task.today } : task
+      )
+    );
   };
 
   const startEditTask = (task: Task) => {
@@ -49,9 +66,11 @@ function Todo() {
 
   const saveEditTask = () => {
     if (editTask) {
-      setTasks(tasks.map(task =>
-        task.id === editTask.id ? { ...task, text: editText } : task
-      ));
+      setTasks(
+        tasks.map((task) =>
+          task.id === editTask.id ? { ...task, text: editText } : task
+        )
+      );
       setEditTask(null);
       setEditText("");
     }
@@ -60,57 +79,75 @@ function Todo() {
   const renderTask = (task: Task) => (
     <ListGroup.Item
       key={task.id}
-      className="d-flex justify-content-between align-items-center"
+      className="list-item d-flex justify-content-between align-items-center"
       variant={task.completed ? "success" : undefined}
     >
-      <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
+      <span
+        style={{ textDecoration: task.completed ? "line-through" : "none" }}
+      >
         {task.text}
       </span>
       <ButtonGroup>
-        <Button variant="outline-primary" size="sm" onClick={() => toggleToday(task.id)}>
-          {task.today ? "Later" : "Today"}
-        </Button>
-        <Button variant="outline-success" size="sm" onClick={() => toggleComplete(task.id)}>
+        <Button
+					className="done"
+          variant="outline-success"
+          size="sm"
+          onClick={() => toggleComplete(task.id)}
+        >
           {task.completed ? "Undo" : "Done"}
+					{task.completed ? (<i className="bi bi-arrow-counterclockwise"></i>) : (<i className="bi bi-check"></i>)}
         </Button>
-        <Button variant="outline-secondary" size="sm" onClick={() => startEditTask(task)}>
-          Edit
+				<Button
+					className="later"
+          variant="outline-primary"
+          size="sm"
+          onClick={() => toggleToday(task.id)}
+        >
+          {task.today ? "Later" : "Today"}
+					{task.today ? (<i className="bi bi-arrow-right-short"></i>) : (<i className="bi bi-arrow-left-short"></i>)}
+        </Button>
+        
+        <Button
+					className="edit"
+          variant="outline-secondary"
+          size="sm"
+          onClick={() => startEditTask(task)}
+        >
+          Edit <i className="bi bi-pencil-fill"></i>
         </Button>
       </ButtonGroup>
     </ListGroup.Item>
   );
 
-  const incompleteTasks = tasks.filter(task => !task.completed);
-  const completedTasks = tasks.filter(task => task.completed);
+  const incompleteTasks = tasks.filter((task) => !task.completed);
+  const completedTasks = tasks.filter((task) => task.completed);
 
   return (
-    <Container className="mt-4" style={{ maxWidth: "800px" }}>
+    <Container className="mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h1>To-Do List</h1>
         <Button onClick={() => setShowAddModal(true)}>Add Task</Button>
       </div>
 
-      <Row>
-        <Col md={6}>
-          <h5>Today</h5>
-          <ListGroup>
-            {incompleteTasks.filter(task => task.today).map(renderTask)}
+      <Container className="m-0 p-0 d-flex justify-content-between">
+        <Card className="todo-list today">
+          <Card.Header>Today</Card.Header>
+          <ListGroup variant="flush">
+            {incompleteTasks.filter((task) => task.today).map(renderTask)}
           </ListGroup>
-        </Col>
-        <Col md={6}>
-          <h5>Later</h5>
-          <ListGroup>
-            {incompleteTasks.filter(task => !task.today).map(renderTask)}
+        </Card>
+        <Card className="todo-list later">
+          <Card.Header>Later</Card.Header>
+          <ListGroup variant="flush">
+            {incompleteTasks.filter((task) => !task.today).map(renderTask)}
           </ListGroup>
-        </Col>
-      </Row>
+        </Card>
+      </Container>
 
       {completedTasks.length > 0 && (
         <div className="mt-5">
           <h5>Completed</h5>
-          <ListGroup>
-            {completedTasks.map(renderTask)}
-          </ListGroup>
+          <ListGroup>{completedTasks.map(renderTask)}</ListGroup>
         </div>
       )}
 
@@ -127,9 +164,18 @@ function Todo() {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={() => editTask && deleteTask(editTask.id)}>Delete</Button>
-          <Button variant="secondary" onClick={() => setEditTask(null)}>Cancel</Button>
-          <Button variant="primary" onClick={saveEditTask}>Save</Button>
+          <Button
+            variant="danger"
+            onClick={() => editTask && deleteTask(editTask.id)}
+          >
+            Delete
+          </Button>
+          <Button variant="secondary" onClick={() => setEditTask(null)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={saveEditTask}>
+            Save
+          </Button>
         </Modal.Footer>
       </Modal>
 
@@ -152,13 +198,21 @@ function Todo() {
             value={newTaskToday ? 1 : 0}
             onChange={(val) => setNewTaskToday(val === 1)}
           >
-            <ToggleButton id="today-btn" value={1} variant="outline-success">Today</ToggleButton>
-            <ToggleButton id="later-btn" value={0} variant="outline-secondary">Later</ToggleButton>
+            <ToggleButton id="today-btn" value={1} variant="outline-success">
+              Today
+            </ToggleButton>
+            <ToggleButton id="later-btn" value={0} variant="outline-secondary">
+              Later
+            </ToggleButton>
           </ToggleButtonGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowAddModal(false)}>Cancel</Button>
-          <Button variant="primary" onClick={addTask}>Add Task</Button>
+          <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={addTask}>
+            Add Task
+          </Button>
         </Modal.Footer>
       </Modal>
     </Container>

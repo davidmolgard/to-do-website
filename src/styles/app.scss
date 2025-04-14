@@ -1,6 +1,10 @@
 body {
-	width: 100%;
-	background-image: url('../assets/background/dot.svg');
-	background-repeat: repeat;
-	 scrollbar-gutter: stable both-edges;
+  width: 100%;
+  background-image: url("../assets/background/dot.svg");
+  background-repeat: repeat;
+  scrollbar-gutter: stable both-edges;
+}
+
+h1 {
+	font-family: 'Edu NSW ACT Foundation';
 }

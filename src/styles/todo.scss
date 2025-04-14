@@ -1,0 +1,36 @@
+.todo-list {
+	width: 50%;
+	min-height: 50vh;
+
+	&.today {
+		margin-right: 10px;
+		.card-header {
+			background-color: $accent-yellow;
+		}
+	}
+
+	&.later {
+		.card-header {
+			background-color: $accent-light-blue;
+		}
+	}
+}
+
+.list-item {
+	box-shadow: 0px 1px 1px 0px #1111110f;
+	
+	* {
+		border-color: $dark-gray;
+		color: $dark-gray;
+	}
+	.later:hover {
+		background-color: rgba($accent-yellow, 0.2);
+	}
+	.done:hover {
+		color: $dark-gray;
+		background-color: rgba($success, 0.2);
+	}
+	.edit:hover {
+		background-color: rgba($accent-pink, 0.2);
+	}
+}
