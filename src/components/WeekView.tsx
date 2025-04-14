@@ -1,10 +1,25 @@
-import { useAppData } from "../AppDataContext";
-import { useEffect, useState } from "react";
-import '../styles/weekView.scss';
+import { useAppData, Appointment } from "../AppDataContext";
+import { useState } from "react";
+import EventDetailPopup from "./EventDetailPopup";
+import "../styles/weekView.scss";
 
-function WeekView({ weekOffset }: { weekOffset: number }) {
+interface WeekViewProps {
+  weekOffset: number;
+  onEditAppointment: (appt: Appointment) => void;
+}
+
+export default function WeekView({ weekOffset, onEditAppointment }: WeekViewProps) {
   const { appointments } = useAppData();
+  const [selectedEvent, setSelectedEvent] = useState<Appointment | null>(null);
+  const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
+
   const weekDates = getStartOfWeek(new Date(), weekOffset);
+
+  const handleEventClick = (appt: Appointment, e: React.MouseEvent) => {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    setSelectedEvent(appt);
+    setAnchorRect(rect);
+  };
 
   return (
     <div className="calendar-week-view">
@@ -26,9 +41,11 @@ function WeekView({ weekOffset }: { weekOffset: number }) {
               </div>
 
               <div className="day-slots">
-                {dayAppointments.map(appt => {
-                  const top = ((parseInt(appt.startTime) - 7) * 60 + parseInt(appt.startTime.split(":")[1])) * (1);
-                  const height = (parseInt(appt.endTime) - parseInt(appt.startTime)) * 60;
+                {dayAppointments.map((appt) => {
+                  const start = parseTime(appt.startTime);
+                  const end = parseTime(appt.endTime);
+                  const top = (start - 7) * 60; // px
+                  const height = (end - start) * 60;
 
                   return (
                     <div
@@ -39,6 +56,7 @@ function WeekView({ weekOffset }: { weekOffset: number }) {
                         height: `${height}px`,
                         backgroundColor: `var(--${appt.color})`,
                       }}
+                      onClick={(e) => handleEventClick(appt, e)}
                     >
                       {appt.title}
                     </div>
@@ -49,11 +67,23 @@ function WeekView({ weekOffset }: { weekOffset: number }) {
           );
         })}
       </div>
+
+      {selectedEvent && anchorRect && (
+        <EventDetailPopup
+          event={selectedEvent}
+          anchorRect={anchorRect}
+          onClose={() => setSelectedEvent(null)}
+          onEdit={(appt) => {
+            setSelectedEvent(null);
+            onEditAppointment(appt);
+          }}
+        />
+      )}
     </div>
   );
 }
 
-function getStartOfWeek(baseDate: Date, offset: number): Date[] {
+function getStartOfWeek(baseDate: Date, offset: number = 0): Date[] {
   const start = new Date(baseDate);
   start.setDate(start.getDate() - start.getDay() + offset * 7);
   start.setHours(0, 0, 0, 0);
@@ -65,4 +95,7 @@ function getStartOfWeek(baseDate: Date, offset: number): Date[] {
   });
 }
 
-export default WeekView;
+function parseTime(time: string): number {
+  const [h, m] = time.split(":").map(Number);
+  return h + m / 60;
+}

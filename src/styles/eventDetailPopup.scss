@@ -1,0 +1,45 @@
+.event-detail-popup {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 0.75rem;
+    z-index: 1000;
+    width: 220px;
+    border: 1px solid #dee2e6;
+  }
+  
+  .popup-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.5rem;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 0.25rem;
+  }
+  
+  .circle-btn {
+    background: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .circle-btn:hover {
+    background: #e2e6ea;
+  }
+  
+  .popup-body h6 {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  
