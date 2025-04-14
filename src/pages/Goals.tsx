@@ -1,5 +1,4 @@
-// import { useAppData } from "../AppDataContext";
-import { useDemoAppData } from "../DemoDataContext";
+import { useAppData } from "../AppDataContext";
 import { useState } from "react";
 import {
   Container,
@@ -20,7 +19,7 @@ interface Goal {
 }
 
 function Goals() {
-	const { goals, setGoals } = useDemoAppData();
+	const { goals, setGoals } = useAppData();
   const [newGoal, setNewGoal] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
 
@@ -109,7 +108,7 @@ function Goals() {
 					</ListGroup>
         </Card>
         <Card className="goals streaks">
-          <Card.Header>Streaks</Card.Header>
+          <Card.Header>Streaks🔥</Card.Header>
 					<Card.Body>
           	{goals.map(renderGoalStreak)}
 					</Card.Body>

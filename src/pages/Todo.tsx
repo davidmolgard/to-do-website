@@ -1,5 +1,4 @@
-// import { useAppData } from "../AppDataContext";
-import { useDemoAppData } from "../DemoDataContext";
+import { useAppData } from "../AppDataContext";
 import { useState } from "react";
 import {
   Container,
@@ -21,7 +20,7 @@ interface Task {
 }
 
 function Todo() {
-  const { tasks, setTasks } = useDemoAppData();
+  const { tasks, setTasks } = useAppData();
   const [newTask, setNewTask] = useState("");
   const [newTaskToday, setNewTaskToday] = useState(true);
   const [editTask, setEditTask] = useState<Task | null>(null);

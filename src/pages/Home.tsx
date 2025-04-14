@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-// import { useAppData } from "../AppDataContext";
-import { useDemoAppData } from "../DemoDataContext";
+import { useAppData } from "../AppDataContext";
 import { Container, Card, ListGroup, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { WidthProvider, Responsive } from "react-grid-layout";
@@ -8,7 +7,7 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 function Home() {
   // For now, sample/mock data. Replace with Context or props later.
-  const { appointments, tasks, goals } = useDemoAppData();
+  const { appointments, tasks, goals } = useAppData();
 
   const todayStr = new Date().toISOString().split("T")[0];
 
@@ -78,7 +77,7 @@ function Home() {
               <ListGroup>
                 {todayAppointments.map((appt) => (
                   <ListGroup.Item key={appt.id}>
-                    <strong>{appt.time}</strong> — {appt.title}
+                    <strong>{appt.startTime}</strong> — {appt.title}
                   </ListGroup.Item>
                 ))}
               </ListGroup>

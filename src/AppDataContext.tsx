@@ -19,13 +19,13 @@ export interface Task {
 export interface Goal {
   id: number;
   name: string;
-  log: { [date: string]: boolean }[];
+  log: { [date: string]: boolean };
 }
 
 export interface Habit {
   id: number;
   name: string;
-  log: { [date: string]: boolean }[];
+  log: { [date: string]: boolean };
   type: "good" | "bad";
 }
 
