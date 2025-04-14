@@ -1,6 +1,5 @@
 import { useAppData, Appointment } from "../AppDataContext";
 import { useRef, useEffect } from "react";
-import "../styles/eventDetailPopup.scss";
 
 interface Props {
   event: Appointment;

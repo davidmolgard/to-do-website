@@ -3,7 +3,6 @@ import { Container, Button, Modal, Form, Dropdown } from "react-bootstrap";
 import { useAppData, Appointment } from "../AppDataContext";
 import WeekView from "../components/WeekView";
 import MonthView from "../components/MonthView";
-import "../styles/schedule.scss";
 
 function Schedule() {
   const { appointments, setAppointments } = useAppData();

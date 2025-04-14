@@ -1,7 +1,6 @@
 import { useAppData, Appointment } from "../AppDataContext";
 import { useState } from "react";
 import EventDetailPopup from "./EventDetailPopup";
-import "../styles/weekView.scss";
 
 interface WeekViewProps {
   weekOffset: number;

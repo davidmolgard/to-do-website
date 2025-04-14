@@ -220,7 +220,7 @@ hr {
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-family: "Outfit";
+  font-family: "Edu NSW ACT Foundation";
   font-weight: 500;
   line-height: 1.2;
   color: var(--bs-heading-color);
@@ -12077,6 +12077,120 @@ h1, .h1 {
   margin-top: 0.5rem;
 }
 
+.event-detail-popup {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0.75rem;
+  z-index: 1000;
+  width: 220px;
+  border: 1px solid #dee2e6;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.circle-btn {
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.circle-btn:hover {
+  background: #e2e6ea;
+}
+
+.popup-body h6, .popup-body .h6 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+:root {
+  --blue: #007bff;
+  --yellow: #ffc107;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --purple: #6f42c1;
+  --green: #28a745;
+  --pink: #e83e8c;
+}
+
+.month-view-container {
+  padding: 1rem;
+}
+
+.month-nav {
+  padding: 0 1rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+}
+
+.day-label {
+  font-weight: 600;
+  text-align: center;
+  padding-bottom: 0.25rem;
+}
+
+.calendar-day {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  min-height: 100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-day.other-month {
+  background-color: #f8f9fa;
+  color: #adb5bd;
+}
+
+.date-number {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.events-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  overflow: hidden;
+}
+
+.event-chip {
+  padding: 2px 4px;
+  font-size: 0.75rem;
+  color: #fff;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .todo-list {
   width: 50%;
   min-height: 50vh;
@@ -12107,4 +12221,68 @@ h1, .h1 {
 }
 .list-item .edit:hover {
   background-color: rgba(197, 159, 201, 0.2);
+}
+
+:root {
+  --blue: #007bff;
+  --yellow: #ffc107;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --purple: #6f42c1;
+  --green: #28a745;
+  --pink: #e83e8c;
+}
+
+.calendar-week-view {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.hour-labels {
+  width: 80px;
+  text-align: right;
+  padding-right: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.hour {
+  height: 60px;
+  border-bottom: 1px solid #ddd;
+  line-height: 60px;
+}
+
+.week-columns {
+  display: flex;
+  flex: 1;
+}
+
+.day-column {
+  flex: 1;
+  border-left: 1px solid #ddd;
+  position: relative;
+}
+
+.day-label {
+  padding: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+  background: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+}
+
+.day-slots {
+  position: relative;
+  height: 840px;
+}
+
+.appointment-box {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  border-radius: 6px;
+  padding: 0.3rem;
+  color: white;
+  font-size: 0.75rem;
+  z-index: 2;
 }
