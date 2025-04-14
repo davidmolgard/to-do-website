@@ -12108,3 +12108,11 @@ h1, .h1 {
 .list-item .edit:hover {
   background-color: rgba(197, 159, 201, 0.2);
 }
+
+.goal .goals.card {
+  width: 50%;
+  min-height: 50vh;
+}
+.goal .goals.card.list {
+  margin-right: 20px;
+}

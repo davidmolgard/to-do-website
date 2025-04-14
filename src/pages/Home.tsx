@@ -20,7 +20,7 @@ function Home() {
 
   const todayAppointments = appointments
     .filter((appt) => appt.date === todayStr)
-    .sort((a, b) => a.time.localeCompare(b.time));
+    .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
   const todayTasks = tasks.filter((task) => task.today && !task.completed);
 
@@ -77,7 +77,7 @@ function Home() {
               <ListGroup>
                 {todayAppointments.map((appt) => (
                   <ListGroup.Item key={appt.id}>
-                    <strong>{appt.time}</strong> — {appt.title}
+                    <strong>{appt.startTime}</strong> — {appt.title}
                   </ListGroup.Item>
                 ))}
               </ListGroup>

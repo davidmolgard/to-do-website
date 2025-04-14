@@ -1,6 +1,6 @@
+import { useAppData } from "../AppDataContext";
 import { useState } from "react";
 import { Container, Button, Modal, Form, Dropdown } from "react-bootstrap";
-import { useAppData } from "../AppDataContext";
 import WeekView from "../components/WeekView";
 import MonthView from "../components/MonthView";
 import "../styles/schedule.scss"; // keep this, even as WeekView/MonthView have their own files

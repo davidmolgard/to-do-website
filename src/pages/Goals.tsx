@@ -8,6 +8,8 @@ import {
   Modal,
   Row,
   Col,
+	Table,
+	Card
 } from "react-bootstrap";
 
 interface Goal {
@@ -92,22 +94,26 @@ function Goals() {
   };
 
   return (
-    <Container className="mt-4" style={{ maxWidth: "800px" }}>
+    <Container className="goal mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
 				<h1>Goals</h1>
         <Button onClick={() => setShowAddModal(true)}>Add Goal</Button>
       </div>
 
-      <Row>
-        <Col md={6}>
-          <h5>Today's Goals</h5>
-          <ListGroup>{goals.map(renderGoalRow)}</ListGroup>
-        </Col>
-        <Col md={6}>
-          <h5>Streaks</h5>
-          {goals.map(renderGoalStreak)}
-        </Col>
-      </Row>
+      <Container className="m-0 p-0 d-flex justify-content-between">
+        <Card className="goals list">
+          <Card.Header>Today's Goals</Card.Header>
+          <ListGroup variant="flush">
+						{goals.map(renderGoalRow)}
+					</ListGroup>
+        </Card>
+        <Card className="goals streaks">
+          <Card.Header>Streaks🔥</Card.Header>
+					<Card.Body>
+          	{goals.map(renderGoalStreak)}
+					</Card.Body>
+        </Card>
+      </Container>
 
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)} centered>
         <Modal.Header closeButton>
