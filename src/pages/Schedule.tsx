@@ -1,102 +1,79 @@
-// import { useAppData } from "../AppDataContext";
-import { useDemoAppData } from "../DemoDataContext";
+import { useAppData } from "../AppDataContext";
+// import { useDemoAppData } from "../DemoDataContext";
 import { useState } from "react";
-import {
-  Container,
-  Button,
-  Modal,
-  Form,
-  Card,
-} from "react-bootstrap";
+import { Container, Button, Modal, Form, Dropdown } from "react-bootstrap";
+import WeekView from "../components/WeekView";
+import MonthView from "../components/MonthView";
+import "../styles/schedule.scss"; // keep this, even as WeekView/MonthView have their own files
 
 function Schedule() {
-	const { appointments, setAppointments } = useDemoAppData();
+  const { setAppointments } = useAppData();
+
   const [weekOffset, setWeekOffset] = useState(0);
-  const [selectedDateStr, setSelectedDateStr] = useState(getStartOfWeek(new Date(), 0)[new Date().getDay()].toISOString().split("T")[0]);
+  const [viewMode, setViewMode] = useState<"week" | "month">("week");
 
   const [showModal, setShowModal] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
-  const [newTime, setNewTime] = useState("12:00");
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [startTime, setStartTime] = useState("12:00");
+  const [endTime, setEndTime] = useState("13:00");
+  const [color, setColor] = useState("blue");
 
-  const currentWeekDates = getStartOfWeek(new Date(), weekOffset);
-
-  const addAppointment = () => {
-    if (!newTitle.trim()) return;
-    setAppointments([
-      ...appointments,
+  const handleAddAppointment = () => {
+    if (!title.trim()) return;
+    setAppointments((prev) => [
+      ...prev,
       {
         id: Date.now(),
-        title: newTitle,
-        time: newTime,
-        date: selectedDateStr,
+        title,
+        date,
+        startTime,
+        endTime,
+        color,
       },
     ]);
     setShowModal(false);
-    setNewTitle("");
-    setNewTime("12:00");
+    resetModal();
   };
 
-  const getAppointmentsForDate = (dateStr: string) =>
-    appointments
-      .filter((a) => a.date === dateStr)
-      .sort((a, b) => a.time.localeCompare(b.time));
+  const resetModal = () => {
+    setTitle("");
+    setStartTime("12:00");
+    setEndTime("13:00");
+    setDate(new Date().toISOString().split("T")[0]);
+    setColor("blue");
+  };
 
   return (
     <Container className="mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div className="d-flex gap-2">
-          <Button variant="outline-secondary" onClick={() => setWeekOffset(weekOffset - 1)}>
-            ← Previous
-          </Button>
-          <Button variant="outline-secondary" onClick={() => setWeekOffset(weekOffset + 1)}>
-            Next →
-          </Button>
+          {viewMode === "week" && (
+            <>
+              <Button variant="outline-secondary" onClick={() => setWeekOffset(weekOffset - 1)}>
+                ← Previous
+              </Button>
+              <Button variant="outline-secondary" onClick={() => setWeekOffset(weekOffset + 1)}>
+                Next →
+              </Button>
+            </>
+          )}
           <Button variant="primary" onClick={() => setShowModal(true)}>
             Add Appointment
           </Button>
         </div>
+        <Dropdown>
+          <Dropdown.Toggle variant="outline-secondary" id="view-toggle">
+            View: {viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={() => setViewMode("week")}>Week View</Dropdown.Item>
+            <Dropdown.Item onClick={() => setViewMode("month")}>Month View</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
 
-      <div className="horizontal-week">
-        {currentWeekDates.map((date) => {
-          const dateStr = date.toISOString().split("T")[0];
-          const isSelected = dateStr === selectedDateStr;
-          const dayLabel = date.toLocaleDateString(undefined, {
-            weekday: "short",
-            day: "numeric",
-            month: "short",
-          });
-
-          return (
-            <div
-              key={dateStr}
-              className={`day-tab ${isSelected ? "selected" : ""}`}
-              onClick={() => setSelectedDateStr(dateStr)}
-            >
-              {isSelected ? (
-                <Card className="day-card shadow">
-                  <Card.Header className="fw-bold text-center">
-                    {date.toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" })}
-                  </Card.Header>
-                  <Card.Body>
-                    {getAppointmentsForDate(dateStr).length > 0 ? (
-                      getAppointmentsForDate(dateStr).map((appt) => (
-                        <div key={appt.id} className="mb-2">
-                          <strong>{appt.time}</strong>: {appt.title}
-                        </div>
-                      ))
-                    ) : (
-                      <div className="text-muted">No appointments</div>
-                    )}
-                  </Card.Body>
-                </Card>
-              ) : (
-                <div className="bookmark-tab">{dayLabel}</div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+      {viewMode === "week" ? <WeekView weekOffset={weekOffset} /> : <MonthView />}
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
@@ -104,23 +81,33 @@ function Schedule() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="apptTitle">
+            <Form.Group className="mb-3">
               <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Appointment title"
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
-              />
+              <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} />
             </Form.Group>
-
-            <Form.Group className="mb-3" controlId="apptTime">
-              <Form.Label>Time</Form.Label>
-              <Form.Control
-                type="time"
-                value={newTime}
-                onChange={(e) => setNewTime(e.target.value)}
-              />
+            <Form.Group className="mb-3">
+              <Form.Label>Date</Form.Label>
+              <Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Start Time</Form.Label>
+              <Form.Control type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>End Time</Form.Label>
+              <Form.Control type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Color</Form.Label>
+              <Form.Select value={color} onChange={(e) => setColor(e.target.value)}>
+                <option value="blue">Blue</option>
+                <option value="yellow">Yellow</option>
+                <option value="red">Red</option>
+                <option value="orange">Orange</option>
+                <option value="purple">Purple</option>
+                <option value="green">Green</option>
+                <option value="pink">Pink</option>
+              </Form.Select>
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -128,7 +115,7 @@ function Schedule() {
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={addAppointment}>
+          <Button variant="primary" onClick={handleAddAppointment}>
             Add
           </Button>
         </Modal.Footer>
@@ -138,15 +125,3 @@ function Schedule() {
 }
 
 export default Schedule;
-
-function getStartOfWeek(baseDate: Date, offset: number = 0): Date[] {
-  const start = new Date(baseDate);
-  start.setDate(start.getDate() - start.getDay() + offset * 7);
-  start.setHours(0, 0, 0, 0);
-
-  return Array.from({ length: 7 }, (_, i) => {
-    const d = new Date(start);
-    d.setDate(start.getDate() + i);
-    return d;
-  });
-}

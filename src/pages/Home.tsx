@@ -21,7 +21,7 @@ function Home() {
 
   const todayAppointments = appointments
     .filter((appt) => appt.date === todayStr)
-    .sort((a, b) => a.time.localeCompare(b.time));
+    .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
   const todayTasks = tasks.filter((task) => task.today && !task.completed);
 

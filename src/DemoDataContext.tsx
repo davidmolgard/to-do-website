@@ -1,10 +1,12 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
 export interface Appointment {
-	id: number;
-	title: string;
-	time: string;
-	date: string;
+  id: number;
+  title: string;
+  startTime: string; // e.g., "13:00"
+  endTime: string;   // e.g., "14:30"
+  date: string;      // YYYY-MM-DD
+  color: string;     // e.g., "blue", "red", etc.
 }
 
 export interface Task {
@@ -107,48 +109,62 @@ export function DemoAppDataProvider({ children }: { children: ReactNode }) {
 		},
 	];
 
-	const apptData = [
+	const apptData: Appointment[] = [
 		{
 			id: 0,
 			title: "Lunch with mom",
-			time: "11:00",
+			startTime: "11:00",
+			endTime: "14:00",
 			date: getStringDate(0),
+			color: "green"
 		},
 		{
 			id: 1,
 			title: "Work meeting",
-			time: "13:00",
+			startTime: "13:00",
+			endTime: "15:00",
 			date: getStringDate(0),
+			color: "green"
 		},
 		{
 			id: 2,
 			title: "Pizza party",
-			time: "18:00",
+			startTime: "18:00",
+			endTime: "19:00",
 			date: getStringDate(0),
+			color: "green"
 		},
 		{
 			id: 3,
 			title: "Meet with CS group",
-			time: "10:00",
+			startTime: "10:00",
+			endTime: "12:00",
 			date: getStringDate(1),
+			color: "green"
 		},
 		{
 			id: 4,
 			title: "Dentist",
-			time: "13:00",
+			startTime: "13:00",
+			endTime: "14:00",
 			date: getStringDate(1),
+			color: "green"
 		},
 		{
 			id: 5,
 			title: "Nap",
-			time: "16:00",
+			startTime: "16:00",
+			endTime: "16:30",
 			date: getStringDate(-1),
+			color: "green"
 		},
 		{
 			id: 6,
 			title: "Gaming",
-			time: "22:00",
+			startTime: "22:00",
+			endTime: "23:00",
 			date: getStringDate(2),
+			color: "green"
 		},
 	];
 
