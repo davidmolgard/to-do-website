@@ -93,10 +93,15 @@ function Habits() {
   };
 
   const renderHabitRow = (habit: Habit) => (
-    <ListGroup.Item key={habit.id} className="d-flex justify-content-between align-items-center">
+    <ListGroup.Item style={{
+      backgroundColor: habit.type === "good" ? "#26ab7b" : "#ff6b6d",
+      borderLeft: habit.type === "good" ? "4px solid green" : "4px solid red",
+    }} key={habit.id} className="d-flex justify-content-between align-items-center">
       <div>
-        <strong>{habit.name}</strong>
-        <span className="ms-2">🔥 {getCurrentStreak(habit.log)}</span>
+        <strong >{habit.name}</strong>
+        <span className="ms-2">
+          {habit.type === "good" ? "🔥" : "⚠️"} {getCurrentStreak(habit.log)}
+        </span>
       </div>
       <Button
         variant={habit.log[todayStr] ? (habit.type === "good" ? "success" : "danger") : "outline-secondary"}
@@ -152,7 +157,7 @@ function Habits() {
     <Container className="mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h1>Habit Tracker</h1>
-        <Button onClick={() => setShowAddModal(true)}>Add Habit</Button>
+        <Button style={{ backgroundColor: "#8fd3fe", fontWeight: "bold" }} onClick={() => setShowAddModal(true)}>Add Habit</Button>
       </div>
 
       <Row>
