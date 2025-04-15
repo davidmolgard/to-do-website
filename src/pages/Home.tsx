@@ -1,104 +1,205 @@
-import { useEffect } from "react";
-import { useAppData } from "../AppDataContext";
-import { Container, Card, ListGroup, Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { useAppData, Appointment, Task, Goal } from "../AppDataContext";
+import { Container, Card, ListGroup, Button, Modal, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { WidthProvider, Responsive } from "react-grid-layout";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 function Home() {
-  // For now, sample/mock data. Replace with Context or props later.
-  const { appointments, tasks, goals } = useAppData();
-
-  const todayStr = new Date().toISOString().split("T")[0];
-
-  useEffect(() => {
-    // In a real app, you'd pull this from context or localStorage here
-    // For now, fill with mock data (or keep empty arrays)
-  }, []);
-
+  const { appointments, tasks, goals, setAppointments, setTasks, setGoals } = useAppData();
   const navigate = useNavigate();
 
-  const todayAppointments = appointments
-    .filter((appt) => appt.date === todayStr)
-    .sort((a, b) => a.time.localeCompare(b.time));
+  // Today’s date
+  const todayStr = new Date().toISOString().split("T")[0];
 
+  const [showAddTaskModal, setShowAddTaskModal] = useState(false);
+  const [newTaskText, setNewTaskText] = useState("");
+
+  const [showAddAppointmentModal, setShowAddAppointmentModal] = useState(false);
+  const [newAppointmentTitle, setNewAppointmentTitle] = useState("");
+  const [newAppointmentStartTime, setNewAppointmentStartTime] = useState("12:00");
+  const [newAppointmentEndTime, setNewAppointmentEndTime] = useState("13:00");
+  const [newAppointmentColor, setNewAppointmentColor] = useState("blue");
+
+  const [showAddGoalModal, setShowAddGoalModal] = useState(false); // Modal state for adding goals
+  const [newGoal, setNewGoal] = useState("");
+
+  const todayAppointments = appointments.filter((appt) => appt.date === todayStr).sort((a, b) => a.startTime.localeCompare(b.startTime));
   const todayTasks = tasks.filter((task) => task.today && !task.completed);
 
-  const currentGoals = goals.slice(0, 3); // Display top 3 goals
-	
-	const scheduleKey = "schedule";
-	const todoKey = "todo";
-	const goalsKey = "goals";
+  const currentGoals = goals.slice(0, 3); // Show only top 3 goals for now
+
+  // Modal to add a new task
+  const handleAddTask = () => {
+    if (!newTaskText.trim()) return;
+    setTasks([
+      ...tasks,
+      { id: Date.now(), text: newTaskText, completed: false, today: true },
+    ]);
+    setNewTaskText("");
+    setShowAddTaskModal(false);
+  };
+
+  // Modal to add a new appointment
+  const handleAddAppointment = () => {
+    if (!newAppointmentTitle.trim()) return;
+    setAppointments([
+      ...appointments,
+      {
+        id: Date.now(),
+        title: newAppointmentTitle,
+        date: todayStr,
+        startTime: newAppointmentStartTime,
+        endTime: newAppointmentEndTime,
+        color: newAppointmentColor,
+      },
+    ]);
+    setShowAddAppointmentModal(false);
+  };
+
+  // Add a new goal
+  const handleAddGoal = () => {
+    if (!newGoal.trim()) return;
+    setGoals([
+      ...goals,
+      { id: Date.now(), name: newGoal, log: { [todayStr]: false } },
+    ]);
+    setNewGoal("");
+    setShowAddGoalModal(false); // Close the modal after adding
+  };
+
+  // Toggle goal tracking
+  const toggleGoalTracking = (goalId: number) => {
+    setGoals(
+      goals.map((goal) =>
+        goal.id === goalId
+          ? {
+              ...goal,
+              log: {
+                ...goal.log,
+                [todayStr]: !goal.log[todayStr],
+              },
+            }
+          : goal
+      )
+    );
+  };
+
+  // Delete a goal
+  const handleDeleteGoal = (goalId: number) => {
+    setGoals(goals.filter((goal) => goal.id !== goalId));
+  };
+
+  // Mark a task as completed or not
+  const handleTaskToggle = (taskId: number) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              completed: !task.completed,
+            }
+          : task
+      )
+    );
+  };
 
   const layouts = {
     xl: [
-			{ i: scheduleKey, x: 0, y: 0, w: 8, h: 12, minH: 4 },
-			{ i: goalsKey, x: 8, y: 0, w: 4, h: 5, minH: 2 },
-			{ i: todoKey, x: 8, y: 3, w: 4, h: 7, minH: 2 },
-		],
-		lg: [
-			{ i: scheduleKey, x: 0, y: 0, w: 6, h: 8, minH: 4 },
-			{ i: goalsKey, x: 6, y: 0, w: 4, h: 4, minH: 2 },
-			{ i: todoKey, x: 6, y: 3, w: 4, h: 4, minH: 2 },
-		],
+      { i: "schedule", x: 0, y: 0, w: 8, h: 12, minH: 4 },
+      { i: "goals", x: 8, y: 0, w: 4, h: 5, minH: 2 },
+      { i: "todo", x: 8, y: 3, w: 4, h: 7, minH: 2 },
+    ],
+    lg: [
+      { i: "schedule", x: 0, y: 0, w: 6, h: 8, minH: 4 },
+      { i: "goals", x: 6, y: 0, w: 4, h: 4, minH: 2 },
+      { i: "todo", x: 6, y: 3, w: 4, h: 4, minH: 2 },
+    ],
     md: [
-			{ i: scheduleKey, x: 0, y: 0, w: 3, h: 8, minH: 4 },
-			{ i: goalsKey, x: 3, y: 0, w: 3, h: 4, minH: 2 },
-			{ i: todoKey, x: 3, y: 3, w: 3, h: 4, minH: 2 },
-		],
-		sm: [
-			{ i: scheduleKey, x: 0, y: 0, w: 4, h: 5, minH: 4 },
-			{ i: goalsKey, x: 0, y: 0, w: 2, h: 5, minH: 2 },
-			{ i: todoKey, x: 2, y: 3, w: 2, h: 5, minH: 2 },
-		],
+      { i: "schedule", x: 0, y: 0, w: 3, h: 8, minH: 4 },
+      { i: "goals", x: 3, y: 0, w: 3, h: 4, minH: 2 },
+      { i: "todo", x: 3, y: 3, w: 3, h: 4, minH: 2 },
+    ],
+    sm: [
+      { i: "schedule", x: 0, y: 0, w: 4, h: 5, minH: 4 },
+      { i: "goals", x: 0, y: 0, w: 2, h: 5, minH: 2 },
+      { i: "todo", x: 2, y: 3, w: 2, h: 5, minH: 2 },
+    ],
     xs: [
-			{ i: scheduleKey, x: 0, y: 0, w: 4, h: 5, minH: 4 },
-			{ i: goalsKey, x: 0, y: 5, w: 2, h: 5, minH: 2 },
-			{ i: todoKey, x: 0, y: 10, w: 2, h: 5, minH: 2 },
-		]
+      { i: "schedule", x: 0, y: 0, w: 4, h: 5, minH: 4 },
+      { i: "goals", x: 0, y: 5, w: 2, h: 5, minH: 2 },
+      { i: "todo", x: 0, y: 10, w: 2, h: 5, minH: 2 },
+    ],
   };
+
+  const renderTimeSlots = () => {
+    const hours = Array.from({ length: 12 }, (_, i) => 8 + i); // Creates hours from 8AM to 8PM
+    return (
+      <div className="time-slots">
+        {hours.map((hour) => (
+          <div key={hour} className="time-slot">
+            <span>{`${hour}:00`}</span>
+            {todayAppointments
+              .filter((appt) => {
+                const apptStart = parseInt(appt.startTime.split(":")[0]);
+                const apptEnd = parseInt(appt.endTime.split(":")[0]);
+                return apptStart <= hour && apptEnd > hour;
+              })
+              .map((appt) => (
+                <div
+                  key={appt.id}
+                  className="appointment-box"
+                  style={{
+                    backgroundColor: `var(--${appt.color})`,
+                    top: `${(hour - 12) - 1}px`,
+                    height: '60px',
+                    //height: `${(parseInt(appt.endTime.split(":")[0]) - parseInt(appt.startTime.split(":")[0])) * 60}px`,
+                  }}
+                >
+                  <strong>{appt.title}</strong>
+                </div>
+              ))}
+          </div>
+        ))}
+      </div>
+    );
+  };
+  
 
   return (
     <Container className="homepage">
-      <ResponsiveReactGridLayout 
-				className="layout"
-				layouts={layouts} 
-				breakpoints={{ xl: 1200, lg: 992, md: 768, sm: 576, xs: 0 }}
-				cols={{ xl: 12, lg: 10, md: 6, sm: 4, xs: 2 }}
-				margin={[20, 20]}
-				rowHeight={40}
-				draggableHandle=".drag-handle"
-				useCSSTransforms={false}
-			>
-        <Card key={scheduleKey} className="schedule shadow-sm">
-					<Card.Header className="fw-bold drag-handle">Today’s Schedule</Card.Header>
+      <ResponsiveReactGridLayout
+        className="layout"
+        layouts={layouts}
+        breakpoints={{ xl: 1200, lg: 992, md: 768, sm: 576, xs: 0 }}
+        cols={{ xl: 12, lg: 10, md: 6, sm: 4, xs: 2 }}
+        margin={[20, 20]}
+        rowHeight={40}
+        draggableHandle=".drag-handle"
+        useCSSTransforms={false}
+      >
+        {/* Today's Schedule */}
+        <Card key="schedule" className="schedule shadow-sm">
+          <Card.Header className="fw-bold drag-handle">
+            Today’s Schedule
+          </Card.Header>
           <Card.Body>
-            {todayAppointments.length > 0 ? (
-              <ListGroup>
-                {todayAppointments.map((appt) => (
-                  <ListGroup.Item key={appt.id}>
-                    <strong>{appt.time}</strong> — {appt.title}
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
-            ) : (
-              <div className="d-flex justify-content-between">
-                <div className="text-muted mb-2">No appointments for today</div>
-                <Button
-                  size="sm"
-                  variant="outline-dark"
-                  onClick={() => navigate("/schedule")}
-                >
-                  <i className="bi bi-calendar-plus me-2"></i>
-                  Schedule Appointment
-                </Button>
-              </div>
-            )}
+          <Button
+              size="sm"
+              variant="outline-dark"
+              onClick={() => setShowAddAppointmentModal(true)}
+              style={{ position: "absolute", right: "10px", top: "50px" }}
+            >
+              <i className="bi bi-calendar-plus me-2"></i>
+              Schedule Appointment
+            </Button>
+            {renderTimeSlots()}
           </Card.Body>
         </Card>
 
-        <Card key={goalsKey} className="goals shadow-sm">
-					<Card.Header className="fw-bold drag-handle">Goals</Card.Header>
+        {/* Goals */}
+        <Card key="goals" className="goals shadow-sm">
+          <Card.Header className="fw-bold drag-handle">Goals</Card.Header>
           <Card.Body>
             {currentGoals.length > 0 ? (
               currentGoals.map((goal) => {
@@ -109,58 +210,181 @@ function Home() {
                     className="mb-2 d-flex justify-content-between align-items-center"
                   >
                     <span>{goal.name}</span>
-                    <span
-                      className={`badge bg-${
-                        checked ? "success" : "secondary"
-                      }`}
-                    >
-                      {checked ? "✓ Tracked" : "Not Tracked"}
-                    </span>
+                    <div className="d-flex gap-2">
+                      <Button
+                        variant={checked ? "success" : "outline-secondary"}
+                        size="sm"
+                        onClick={() => toggleGoalTracking(goal.id)}
+                      >
+                        {checked ? "✓ Tracked" : "Track"}
+                      </Button>
+                      <Button
+                        variant="outline-danger"
+                        size="sm"
+                        onClick={() => handleDeleteGoal(goal.id)}
+                      >
+                        🗑️
+                      </Button>
+                    </div>
                   </div>
                 );
               })
             ) : (
               <div className="d-flex justify-content-between">
                 <div className="text-muted">No goals yet</div>
-                <Button
-                  size="sm"
-                  variant="outline-dark"
-                  onClick={() => navigate("/goals")}
-                >
-                  <i className="bi bi-plus-square me-2"></i>
-                  Add goals
-                </Button>
               </div>
             )}
+            <Button
+              size="sm"
+              variant="outline-dark"
+              onClick={() => setShowAddGoalModal(true)} // Show the modal for adding a goal
+              className="mt-2"
+            >
+              Add Goal
+            </Button>
           </Card.Body>
         </Card>
 
-        <Card key={todoKey} className="todo shadow-sm">
-					<Card.Header className="fw-bold drag-handle">To-Do List</Card.Header>
+        {/* To-Do List */}
+        <Card key="todo" className="todo shadow-sm">
+          <Card.Header className="fw-bold drag-handle">To-Do List</Card.Header>
           <Card.Body>
             {todayTasks.length > 0 ? (
               <ListGroup>
                 {todayTasks.map((task) => (
-                  <ListGroup.Item key={task.id}>{task.text}</ListGroup.Item>
+                  <ListGroup.Item
+                    key={task.id}
+                    style={{
+                      textDecoration: task.completed ? "line-through" : "none",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={task.completed}
+                      onChange={() => handleTaskToggle(task.id)}
+                    />
+                    {task.text}
+                  </ListGroup.Item>
                 ))}
               </ListGroup>
             ) : (
               <div className="d-flex justify-content-between">
                 <div className="text-muted mb-2">No tasks for today</div>
-                <Button
-                  size="sm"
-                  variant="outline-dark"
-                  onClick={() => navigate("/todo")}
-                >
-                  <i className="bi bi-plus-square me-2"></i>
-                  Add Tasks
-                </Button>
               </div>
             )}
+            <Button
+              size="sm"
+              variant="outline-dark"
+              onClick={() => setShowAddTaskModal(true)} // Show the modal for adding a task
+              className="mt-2"
+            >
+              Add Task
+            </Button>
           </Card.Body>
         </Card>
-
       </ResponsiveReactGridLayout>
+
+      {/* Add Goal Modal */}
+      <Modal show={showAddGoalModal} onHide={() => setShowAddGoalModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Goal</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Control
+            type="text"
+            value={newGoal}
+            onChange={(e) => setNewGoal(e.target.value)}
+            placeholder="Goal name"
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowAddGoalModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleAddGoal}>
+            Add Goal
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Add Task Modal */}
+      <Modal show={showAddTaskModal} onHide={() => setShowAddTaskModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Task</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Control
+            type="text"
+            value={newTaskText}
+            onChange={(e) => setNewTaskText(e.target.value)}
+            placeholder="Task description"
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowAddTaskModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleAddTask}>
+            Add Task
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Add Appointment Modal */}
+      <Modal show={showAddAppointmentModal} onHide={() => setShowAddAppointmentModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Appointment for Today</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group className="mb-3">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              value={newAppointmentTitle}
+              onChange={(e) => setNewAppointmentTitle(e.target.value)}
+              placeholder="Appointment title"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Start Time</Form.Label>
+            <Form.Control
+              type="time"
+              value={newAppointmentStartTime}
+              onChange={(e) => setNewAppointmentStartTime(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>End Time</Form.Label>
+            <Form.Control
+              type="time"
+              value={newAppointmentEndTime}
+              onChange={(e) => setNewAppointmentEndTime(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Color</Form.Label>
+            <Form.Select
+              value={newAppointmentColor}
+              onChange={(e) => setNewAppointmentColor(e.target.value)}
+            >
+              <option value="blue">Blue</option>
+              <option value="yellow">Yellow</option>
+              <option value="red">Red</option>
+              <option value="orange">Orange</option>
+              <option value="purple">Purple</option>
+              <option value="green">Green</option>
+              <option value="pink">Pink</option>
+            </Form.Select>
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowAddAppointmentModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleAddAppointment}>
+            Add Appointment
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

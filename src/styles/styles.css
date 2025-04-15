@@ -11980,6 +11980,10 @@ h1, .h1 {
   font-family: "Edu NSW ACT Foundation";
 }
 
+.homepage {
+  /* Styling for the schedule window */
+  /* Styling for Add Goal and Add Task buttons, positioning them below the last item */
+}
 .homepage .layout {
   max-height: 80vh;
 }
@@ -12007,6 +12011,74 @@ h1, .h1 {
 }
 .homepage .schedule .card-header {
   background-color: #afdef9;
+}
+.homepage .schedule {
+  position: relative; /* So that the add appointment button can be placed absolutely */
+  /* Styling for the "Schedule Appointment" button */
+}
+.homepage .schedule .card-header {
+  position: relative;
+  padding-right: 80px; /* Ensure space for the "Schedule Appointment" button */
+}
+.homepage .schedule .time-slots {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  border-radius: 10px;
+  position: relative;
+  overflow-y: auto; /* Allow the schedule to scroll */
+}
+.homepage .schedule .time-slot {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 60px; /* Fixed height for each hourly slot */
+  position: relative;
+  padding-left: 10px;
+  border-bottom: 1px solid #ddd; /* Horizontal lines separating times */
+  font-weight: bold;
+}
+.homepage .schedule .appointment-box {
+  position: absolute;
+  left: 70px; /* Ensure it doesn't overlap with the time label */
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: calc(100% - 80px); /* Make the appointment box take up the full width */
+  overflow: hidden; /* Prevent overflow of text */
+}
+.homepage .schedule .appointment-box strong {
+  font-weight: 600;
+}
+.homepage .schedule .bi-calendar-plus {
+  margin-right: 8px;
+}
+.homepage .schedule .card-body {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.homepage .goals .card-body, .homepage .todo .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-start;
+}
+.homepage .goals .d-flex.justify-content-between, .homepage .todo .d-flex.justify-content-between {
+  margin-bottom: 15px;
+}
+.homepage .goals .d-flex.gap-2, .homepage .todo .d-flex.gap-2 {
+  align-items: center;
+}
+.homepage .goals .mt-2, .homepage .todo .mt-2 {
+  margin-top: 20px;
 }
 .homepage .goals .card-header {
   background-color: #c59fc9;
