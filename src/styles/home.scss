@@ -1,5 +1,3 @@
-@import "variables";
-
 .homepage {
   .layout {
     max-height: 80vh;
@@ -39,6 +37,7 @@
  /* Styling for the schedule window */
 .schedule {
   position: relative; /* So that the add appointment button can be placed absolutely */
+	overflow-y: scroll;
   .card-header {
     position: relative;
     padding-right: 80px; /* Ensure space for the "Schedule Appointment" button */

@@ -220,7 +220,7 @@ hr {
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-family: "Edu NSW ACT Foundation";
+  font-family: "Outfit";
   font-weight: 500;
   line-height: 1.2;
   color: var(--bs-heading-color);
@@ -11980,6 +11980,59 @@ h1, .h1 {
   font-family: "Edu NSW ACT Foundation";
 }
 
+.event-detail-popup {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0.75rem;
+  z-index: 1000;
+  width: 220px;
+  border: 1px solid #dee2e6;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.circle-btn {
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.circle-btn:hover {
+  background: #e2e6ea;
+}
+
+.popup-body h6, .popup-body .h6 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.goal .goals.card {
+  width: 50%;
+  min-height: 50vh;
+}
+.goal .goals.card.list {
+  margin-right: 20px;
+}
+
 .homepage {
   /* Styling for the schedule window */
   /* Styling for Add Goal and Add Task buttons, positioning them below the last item */
@@ -12014,6 +12067,7 @@ h1, .h1 {
 }
 .homepage .schedule {
   position: relative; /* So that the add appointment button can be placed absolutely */
+  overflow-y: scroll;
   /* Styling for the "Schedule Appointment" button */
 }
 .homepage .schedule .card-header {
@@ -12093,107 +12147,6 @@ h1, .h1 {
           user-select: none;
 }
 
-.navbar {
-  background-color: #31393C;
-}
-.navbar-brand {
-  color: white;
-}
-.navbar-brand:hover {
-  color: #EBE4A4;
-}
-.navbar .nav-link {
-  color: white;
-}
-.navbar .nav-link.brand.active {
-  text-decoration: none;
-}
-.navbar .nav-link.active {
-  color: white;
-  font-weight: 500;
-  -webkit-text-decoration: 2px #EBE4A4 underline;
-          text-decoration: 2px #EBE4A4 underline;
-}
-
-.horizontal-week {
-  display: flex;
-  overflow-x: auto;
-  gap: 1rem;
-  padding-bottom: 1rem;
-  scroll-snap-type: x mandatory;
-}
-
-.day-tab {
-  cursor: pointer;
-  flex: 0 0 auto;
-  transition: transform 0.3s ease, flex-basis 0.3s ease;
-  scroll-snap-align: start;
-}
-
-.bookmark-tab {
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  padding: 1rem;
-  text-align: center;
-  font-weight: 500;
-  min-width: 80px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.day-card {
-  min-width: 250px;
-  width: 300px;
-  max-height: 400px;
-  overflow-y: auto;
-  border-radius: 20px;
-  margin-top: 0.5rem;
-}
-
-.event-detail-popup {
-  position: absolute;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 0.75rem;
-  z-index: 1000;
-  width: 220px;
-  border: 1px solid #dee2e6;
-}
-
-.popup-header {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 0.5rem;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 0.25rem;
-}
-
-.circle-btn {
-  background: #f8f9fa;
-  border: 1px solid #ced4da;
-  border-radius: 50%;
-  width: 26px;
-  height: 26px;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.circle-btn:hover {
-  background: #e2e6ea;
-}
-
-.popup-body h6, .popup-body .h6 {
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
-
 :root {
   --blue: #007bff;
   --yellow: #ffc107;
@@ -12263,6 +12216,100 @@ h1, .h1 {
   text-overflow: ellipsis;
 }
 
+.navbar {
+  background-color: #31393C;
+}
+.navbar-brand {
+  color: white;
+}
+.navbar-brand:hover {
+  color: #EBE4A4;
+}
+.navbar .nav-link {
+  color: white;
+}
+.navbar .nav-link.brand.active {
+  text-decoration: none;
+}
+.navbar .nav-link.active {
+  color: white;
+  font-weight: 500;
+  -webkit-text-decoration: 2px #EBE4A4 underline;
+          text-decoration: 2px #EBE4A4 underline;
+}
+.navbar .navbar-toggler {
+  color: #EBE4A4;
+}
+.navbar .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+.horizontal-week {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.day-tab {
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease, flex-basis 0.3s ease;
+  scroll-snap-align: start;
+}
+
+.bookmark-tab {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 500;
+  min-width: 80px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.day-card {
+  min-width: 250px;
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  border-radius: 20px;
+  margin-top: 0.5rem;
+}
+
+.todo-list {
+  width: 50%;
+  min-height: 50vh;
+}
+.todo-list.today {
+  margin-right: 10px;
+}
+.todo-list.today .card-header {
+  background-color: #EBE4A4;
+}
+.todo-list.later .card-header {
+  background-color: #afdef9;
+}
+
+.list-item {
+  box-shadow: 0px 1px 1px 0px rgba(17, 17, 17, 0.0588235294);
+}
+.list-item * {
+  border-color: #31393C;
+  color: #31393C;
+}
+.list-item .later:hover {
+  background-color: rgba(235, 228, 164, 0.2);
+}
+.list-item .done:hover {
+  color: #31393C;
+  background-color: rgba(0, 99, 7, 0.2);
+}
+.list-item .edit:hover {
+  background-color: rgba(197, 159, 201, 0.2);
+}
+
 :root {
   --blue: #007bff;
   --yellow: #ffc107;
@@ -12325,44 +12372,4 @@ h1, .h1 {
   color: white;
   font-size: 0.75rem;
   z-index: 2;
-}
-
-.todo-list {
-  width: 50%;
-  min-height: 50vh;
-}
-.todo-list.today {
-  margin-right: 10px;
-}
-.todo-list.today .card-header {
-  background-color: #EBE4A4;
-}
-.todo-list.later .card-header {
-  background-color: #afdef9;
-}
-
-.list-item {
-  box-shadow: 0px 1px 1px 0px rgba(17, 17, 17, 0.0588235294);
-}
-.list-item * {
-  border-color: #31393C;
-  color: #31393C;
-}
-.list-item .later:hover {
-  background-color: rgba(235, 228, 164, 0.2);
-}
-.list-item .done:hover {
-  color: #31393C;
-  background-color: rgba(0, 99, 7, 0.2);
-}
-.list-item .edit:hover {
-  background-color: rgba(197, 159, 201, 0.2);
-}
-
-.goal .goals.card {
-  width: 50%;
-  min-height: 50vh;
-}
-.goal .goals.card.list {
-  margin-right: 20px;
 }

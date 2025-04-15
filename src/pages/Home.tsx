@@ -223,7 +223,7 @@ function Home() {
                         size="sm"
                         onClick={() => handleDeleteGoal(goal.id)}
                       >
-                        🗑️
+                        <i className="bi bi-trash"></i>
                       </Button>
                     </div>
                   </div>
@@ -238,8 +238,10 @@ function Home() {
               size="sm"
               variant="outline-dark"
               onClick={() => setShowAddGoalModal(true)} // Show the modal for adding a goal
-              className="mt-2"
+              className="float-end mt-2"
+							style={{width: "fit-content"}}
             >
+							<i className="bi bi-plus"></i>
               Add Goal
             </Button>
           </Card.Body>
@@ -277,7 +279,9 @@ function Home() {
               variant="outline-dark"
               onClick={() => setShowAddTaskModal(true)} // Show the modal for adding a task
               className="mt-2"
+							style={{width: "fit-content"}}
             >
+							<i className="bi bi-plus"></i>
               Add Task
             </Button>
           </Card.Body>
