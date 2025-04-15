@@ -1,5 +1,3 @@
-@import "variables";
-
 .homepage {
   .layout {
     max-height: 80vh;
@@ -36,17 +34,103 @@
 		}
 	}
 
-	.goals {
-		.card-header {
-			background-color: $accent-pink;
-		}
-	}
+ /* Styling for the schedule window */
+.schedule {
+  position: relative; /* So that the add appointment button can be placed absolutely */
+	overflow-y: scroll;
+  .card-header {
+    position: relative;
+    padding-right: 80px; /* Ensure space for the "Schedule Appointment" button */
+  }
 
-	.todo {
-		.card-header {
-			background-color: $accent-yellow;
-		}
-	}
+  .time-slots {
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    border-radius: 10px;
+    position: relative;
+    //height: 400px; /* Set a fixed height for the schedule */
+    overflow-y: auto; /* Allow the schedule to scroll */
+  }
+
+  .time-slot {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 60px; /* Fixed height for each hourly slot */
+    position: relative;
+    padding-left: 10px;
+    border-bottom: 1px solid #ddd; /* Horizontal lines separating times */
+    font-weight: bold;
+  }
+
+  .appointment-box {
+    position: absolute;
+    left: 70px; /* Ensure it doesn't overlap with the time label */
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: calc(100% - 80px); /* Make the appointment box take up the full width */
+    overflow: hidden; /* Prevent overflow of text */
+  }
+
+  .appointment-box strong {
+    font-weight: 600;
+  }
+
+  /* Styling for the "Schedule Appointment" button */
+  .bi-calendar-plus {
+    margin-right: 8px;
+  }
+
+  .card-body {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* Styling for Add Goal and Add Task buttons, positioning them below the last item */
+.goals, .todo {
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+  }
+
+  .d-flex.justify-content-between {
+    margin-bottom: 15px;
+  }
+
+  .d-flex.gap-2 {
+    align-items: center;
+  }
+
+  .mt-2 {
+    margin-top: 20px;
+  }
+}
+
+.goals {
+  .card-header {
+    background-color: $accent-pink;
+  }
+}
+
+.todo {
+  .card-header {
+    background-color: $accent-yellow;
+  }
+}
+
 }
 
 .react-draggable-transparent-selection {

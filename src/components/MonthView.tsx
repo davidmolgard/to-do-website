@@ -1,10 +1,16 @@
-import { useAppData } from "../AppDataContext";
+import { useAppData, Appointment } from "../AppDataContext";
 import { useState } from "react";
-import "../styles/monthView.scss";
+import EventDetailPopup from "./EventDetailPopup";
 
-function MonthView() {
+interface MonthViewProps {
+  onEditAppointment: (appt: Appointment) => void;
+}
+
+export default function MonthView({ onEditAppointment }: MonthViewProps) {
   const { appointments } = useAppData();
   const [monthOffset, setMonthOffset] = useState(0);
+  const [selectedEvent, setSelectedEvent] = useState<Appointment | null>(null);
+  const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
 
   const baseDate = new Date();
   baseDate.setMonth(baseDate.getMonth() + monthOffset);
@@ -13,7 +19,7 @@ function MonthView() {
 
   const firstDayOfMonth = new Date(year, month, 1);
   const startDay = new Date(firstDayOfMonth);
-  startDay.setDate(startDay.getDate() - startDay.getDay()); // Start from Sunday
+  startDay.setDate(startDay.getDate() - startDay.getDay());
 
   const days: Date[] = [];
   for (let i = 0; i < 42; i++) {
@@ -21,6 +27,12 @@ function MonthView() {
     day.setDate(startDay.getDate() + i);
     days.push(day);
   }
+
+  const handleEventClick = (appt: Appointment, e: React.MouseEvent) => {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    setSelectedEvent(appt);
+    setAnchorRect(rect);
+  };
 
   return (
     <div className="month-view-container">
@@ -51,6 +63,7 @@ function MonthView() {
                     className="event-chip"
                     style={{ backgroundColor: `var(--${appt.color})` }}
                     title={`${appt.title} (${appt.startTime}–${appt.endTime})`}
+                    onClick={(e) => handleEventClick(appt, e)}
                   >
                     {appt.title}
                   </div>
@@ -60,8 +73,18 @@ function MonthView() {
           );
         })}
       </div>
+
+      {selectedEvent && anchorRect && (
+        <EventDetailPopup
+          event={selectedEvent}
+          anchorRect={anchorRect}
+          onClose={() => setSelectedEvent(null)}
+          onEdit={(appt) => {
+            setSelectedEvent(null);
+            onEditAppointment(appt);
+          }}
+        />
+      )}
     </div>
   );
 }
-
-export default MonthView;

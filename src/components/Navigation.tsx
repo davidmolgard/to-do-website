@@ -20,9 +20,9 @@ function Navigation() {
             <NavLink className="nav-link" to="/schedule">
               Schedule
             </NavLink>
-            <NavLink className="nav-link" to="/goals">
+            {/* <NavLink className="nav-link" to="/goals">
               Goals
-            </NavLink>
+            </NavLink> */}
             <NavLink className="nav-link" to="/habits">
               Habits
             </NavLink>

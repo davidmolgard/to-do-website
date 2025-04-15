@@ -11980,6 +11980,63 @@ h1, .h1 {
   font-family: "Edu NSW ACT Foundation";
 }
 
+.event-detail-popup {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0.75rem;
+  z-index: 1000;
+  width: 220px;
+  border: 1px solid #dee2e6;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.circle-btn {
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.circle-btn:hover {
+  background: #e2e6ea;
+}
+
+.popup-body h6, .popup-body .h6 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.goal .goals.card {
+  width: 50%;
+  min-height: 50vh;
+}
+.goal .goals.card.list {
+  margin-right: 20px;
+}
+
+.homepage {
+  /* Styling for the schedule window */
+  /* Styling for Add Goal and Add Task buttons, positioning them below the last item */
+}
 .homepage .layout {
   max-height: 80vh;
 }
@@ -12008,6 +12065,75 @@ h1, .h1 {
 .homepage .schedule .card-header {
   background-color: #afdef9;
 }
+.homepage .schedule {
+  position: relative; /* So that the add appointment button can be placed absolutely */
+  overflow-y: scroll;
+  /* Styling for the "Schedule Appointment" button */
+}
+.homepage .schedule .card-header {
+  position: relative;
+  padding-right: 80px; /* Ensure space for the "Schedule Appointment" button */
+}
+.homepage .schedule .time-slots {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  border-radius: 10px;
+  position: relative;
+  overflow-y: auto; /* Allow the schedule to scroll */
+}
+.homepage .schedule .time-slot {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 60px; /* Fixed height for each hourly slot */
+  position: relative;
+  padding-left: 10px;
+  border-bottom: 1px solid #ddd; /* Horizontal lines separating times */
+  font-weight: bold;
+}
+.homepage .schedule .appointment-box {
+  position: absolute;
+  left: 70px; /* Ensure it doesn't overlap with the time label */
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: calc(100% - 80px); /* Make the appointment box take up the full width */
+  overflow: hidden; /* Prevent overflow of text */
+}
+.homepage .schedule .appointment-box strong {
+  font-weight: 600;
+}
+.homepage .schedule .bi-calendar-plus {
+  margin-right: 8px;
+}
+.homepage .schedule .card-body {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.homepage .goals .card-body, .homepage .todo .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-start;
+}
+.homepage .goals .d-flex.justify-content-between, .homepage .todo .d-flex.justify-content-between {
+  margin-bottom: 15px;
+}
+.homepage .goals .d-flex.gap-2, .homepage .todo .d-flex.gap-2 {
+  align-items: center;
+}
+.homepage .goals .mt-2, .homepage .todo .mt-2 {
+  margin-top: 20px;
+}
 .homepage .goals .card-header {
   background-color: #c59fc9;
 }
@@ -12019,6 +12145,75 @@ h1, .h1 {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+}
+
+:root {
+  --blue: #007bff;
+  --yellow: #ffc107;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --purple: #6f42c1;
+  --green: #28a745;
+  --pink: #e83e8c;
+}
+
+.month-view-container {
+  padding: 1rem;
+}
+
+.month-nav {
+  padding: 0 1rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+}
+
+.day-label {
+  font-weight: 600;
+  text-align: center;
+  padding-bottom: 0.25rem;
+}
+
+.calendar-day {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  min-height: 100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-day.other-month {
+  background-color: #f8f9fa;
+  color: #adb5bd;
+}
+
+.date-number {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.events-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  overflow: hidden;
+}
+
+.event-chip {
+  padding: 2px 4px;
+  font-size: 0.75rem;
+  color: #fff;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .navbar {
@@ -12041,6 +12236,12 @@ h1, .h1 {
   font-weight: 500;
   -webkit-text-decoration: 2px #EBE4A4 underline;
           text-decoration: 2px #EBE4A4 underline;
+}
+.navbar .navbar-toggler {
+  color: #EBE4A4;
+}
+.navbar .navbar-toggler-icon {
+  filter: invert(1);
 }
 
 .horizontal-week {
@@ -12109,10 +12310,66 @@ h1, .h1 {
   background-color: rgba(197, 159, 201, 0.2);
 }
 
-.goal .goals.card {
-  width: 50%;
-  min-height: 50vh;
+:root {
+  --blue: #007bff;
+  --yellow: #ffc107;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --purple: #6f42c1;
+  --green: #28a745;
+  --pink: #e83e8c;
 }
-.goal .goals.card.list {
-  margin-right: 20px;
+
+.calendar-week-view {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.hour-labels {
+  width: 80px;
+  text-align: right;
+  padding-right: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.hour {
+  height: 60px;
+  border-bottom: 1px solid #ddd;
+  line-height: 60px;
+}
+
+.week-columns {
+  display: flex;
+  flex: 1;
+}
+
+.day-column {
+  flex: 1;
+  border-left: 1px solid #ddd;
+  position: relative;
+}
+
+.day-label {
+  padding: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+  background: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+}
+
+.day-slots {
+  position: relative;
+  height: 840px;
+}
+
+.appointment-box {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  border-radius: 6px;
+  padding: 0.3rem;
+  color: white;
+  font-size: 0.75rem;
+  z-index: 2;
 }

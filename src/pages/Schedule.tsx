@@ -1,46 +1,78 @@
-import { useAppData } from "../AppDataContext";
 import { useState } from "react";
 import { Container, Button, Modal, Form, Dropdown } from "react-bootstrap";
+import { useAppData, Appointment } from "../AppDataContext";
 import WeekView from "../components/WeekView";
 import MonthView from "../components/MonthView";
-import "../styles/schedule.scss"; // keep this, even as WeekView/MonthView have their own files
 
 function Schedule() {
-  const { setAppointments } = useAppData();
+  const { appointments, setAppointments } = useAppData();
 
   const [weekOffset, setWeekOffset] = useState(0);
   const [viewMode, setViewMode] = useState<"week" | "month">("week");
 
+  // Modal and form state
   const [showModal, setShowModal] = useState(false);
+  const [editingAppointment, setEditingAppointment] = useState<Appointment | null>(null);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [startTime, setStartTime] = useState("12:00");
   const [endTime, setEndTime] = useState("13:00");
   const [color, setColor] = useState("blue");
 
-  const handleAddAppointment = () => {
-    if (!title.trim()) return;
-    setAppointments((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        title,
-        date,
-        startTime,
-        endTime,
-        color,
-      },
-    ]);
-    setShowModal(false);
-    resetModal();
+  const openCreateModal = () => {
+    setEditingAppointment(null);
+    resetModalFields();
+    setShowModal(true);
   };
 
-  const resetModal = () => {
+  const openEditModal = (appt: Appointment) => {
+    setEditingAppointment(appt);
+    setTitle(appt.title);
+    setDate(appt.date);
+    setStartTime(appt.startTime);
+    setEndTime(appt.endTime);
+    setColor(appt.color);
+    setShowModal(true);
+  };
+
+  const resetModalFields = () => {
     setTitle("");
+    setDate(new Date().toISOString().split("T")[0]);
     setStartTime("12:00");
     setEndTime("13:00");
-    setDate(new Date().toISOString().split("T")[0]);
     setColor("blue");
+  };
+
+  const handleSubmit = () => {
+    if (!title.trim()) return;
+
+    if (editingAppointment) {
+      // Editing
+      setAppointments(prev =>
+        prev.map(a =>
+          a.id === editingAppointment.id
+            ? { ...editingAppointment, title, date, startTime, endTime, color }
+            : a
+        )
+      );
+    } else {
+      // New
+      setAppointments(prev => [
+        ...prev,
+        {
+          id: Date.now(),
+          title,
+          date,
+          startTime,
+          endTime,
+          color,
+        },
+      ]);
+    }
+
+    setShowModal(false);
+    resetModalFields();
+    setEditingAppointment(null);
   };
 
   return (
@@ -49,18 +81,25 @@ function Schedule() {
         <div className="d-flex gap-2">
           {viewMode === "week" && (
             <>
-              <Button variant="outline-secondary" onClick={() => setWeekOffset(weekOffset - 1)}>
+              <Button
+                variant="outline-secondary"
+                onClick={() => setWeekOffset((prev) => prev - 1)}
+              >
                 ← Previous
               </Button>
-              <Button variant="outline-secondary" onClick={() => setWeekOffset(weekOffset + 1)}>
+              <Button
+                variant="outline-secondary"
+                onClick={() => setWeekOffset((prev) => prev + 1)}
+              >
                 Next →
               </Button>
             </>
           )}
-          <Button variant="primary" onClick={() => setShowModal(true)}>
+          <Button variant="primary" onClick={openCreateModal}>
             Add Appointment
           </Button>
         </div>
+
         <Dropdown>
           <Dropdown.Toggle variant="outline-secondary" id="view-toggle">
             View: {viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}
@@ -72,33 +111,62 @@ function Schedule() {
         </Dropdown>
       </div>
 
-      {viewMode === "week" ? <WeekView weekOffset={weekOffset} /> : <MonthView />}
+      {/* Render week or month */}
+      {viewMode === "week" ? (
+        <WeekView
+          weekOffset={weekOffset}
+          onEditAppointment={openEditModal}
+        />
+      ) : (
+        <MonthView onEditAppointment={openEditModal} />
+      )}
 
+      {/* Create/Edit Modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Add Appointment</Modal.Title>
+          <Modal.Title>
+            {editingAppointment ? "Edit Appointment" : "Add Appointment"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
               <Form.Label>Title</Form.Label>
-              <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} />
+              <Form.Control
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+              <Form.Control
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Start Time</Form.Label>
-              <Form.Control type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+              <Form.Control
+                type="time"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>End Time</Form.Label>
-              <Form.Control type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+              <Form.Control
+                type="time"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Color</Form.Label>
-              <Form.Select value={color} onChange={(e) => setColor(e.target.value)}>
+              <Form.Select
+                value={color}
+                onChange={(e) => setColor(e.target.value)}
+              >
                 <option value="blue">Blue</option>
                 <option value="yellow">Yellow</option>
                 <option value="red">Red</option>
@@ -114,8 +182,8 @@ function Schedule() {
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleAddAppointment}>
-            Add
+          <Button variant="primary" onClick={handleSubmit}>
+            {editingAppointment ? "Save Changes" : "Add"}
           </Button>
         </Modal.Footer>
       </Modal>
