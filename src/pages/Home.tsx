@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
-import { useAppData, Appointment, Task, Goal } from "../AppDataContext";
+import { useState } from "react";
+import { useAppData } from "../AppDataContext";
 import { Container, Card, ListGroup, Button, Modal, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { WidthProvider, Responsive } from "react-grid-layout";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 function Home() {
   const { appointments, tasks, goals, setAppointments, setTasks, setGoals } = useAppData();
-  const navigate = useNavigate();
 
   // Today’s date
   const todayStr = new Date().toISOString().split("T")[0];
@@ -24,8 +22,10 @@ function Home() {
   const [showAddGoalModal, setShowAddGoalModal] = useState(false); // Modal state for adding goals
   const [newGoal, setNewGoal] = useState("");
 
-  const todayAppointments = appointments.filter((appt) => appt.date === todayStr).sort((a, b) => a.startTime.localeCompare(b.startTime));
-  const todayTasks = tasks.filter((task) => task.today && !task.completed);
+  const todayAppointments = appointments
+    .filter((appt) => appt.date === todayStr)
+    .sort((a, b) => a.startTime.localeCompare(b.startTime));
+	const todayTasks = tasks.filter((task) => task.today && !task.completed);
 
   const currentGoals = goals.slice(0, 3); // Show only top 3 goals for now
 

@@ -12263,38 +12263,6 @@ h1, .h1 {
   text-overflow: ellipsis;
 }
 
-.todo-list {
-  width: 50%;
-  min-height: 50vh;
-}
-.todo-list.today {
-  margin-right: 10px;
-}
-.todo-list.today .card-header {
-  background-color: #EBE4A4;
-}
-.todo-list.later .card-header {
-  background-color: #afdef9;
-}
-
-.list-item {
-  box-shadow: 0px 1px 1px 0px rgba(17, 17, 17, 0.0588235294);
-}
-.list-item * {
-  border-color: #31393C;
-  color: #31393C;
-}
-.list-item .later:hover {
-  background-color: rgba(235, 228, 164, 0.2);
-}
-.list-item .done:hover {
-  color: #31393C;
-  background-color: rgba(0, 99, 7, 0.2);
-}
-.list-item .edit:hover {
-  background-color: rgba(197, 159, 201, 0.2);
-}
-
 :root {
   --blue: #007bff;
   --yellow: #ffc107;
@@ -12357,4 +12325,44 @@ h1, .h1 {
   color: white;
   font-size: 0.75rem;
   z-index: 2;
+}
+
+.todo-list {
+  width: 50%;
+  min-height: 50vh;
+}
+.todo-list.today {
+  margin-right: 10px;
+}
+.todo-list.today .card-header {
+  background-color: #EBE4A4;
+}
+.todo-list.later .card-header {
+  background-color: #afdef9;
+}
+
+.list-item {
+  box-shadow: 0px 1px 1px 0px rgba(17, 17, 17, 0.0588235294);
+}
+.list-item * {
+  border-color: #31393C;
+  color: #31393C;
+}
+.list-item .later:hover {
+  background-color: rgba(235, 228, 164, 0.2);
+}
+.list-item .done:hover {
+  color: #31393C;
+  background-color: rgba(0, 99, 7, 0.2);
+}
+.list-item .edit:hover {
+  background-color: rgba(197, 159, 201, 0.2);
+}
+
+.goal .goals.card {
+  width: 50%;
+  min-height: 50vh;
+}
+.goal .goals.card.list {
+  margin-right: 20px;
 }

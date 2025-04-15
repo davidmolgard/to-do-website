@@ -149,7 +149,7 @@ function Habits() {
   };
 
   return (
-    <Container className="mt-4" style={{ maxWidth: "800px" }}>
+    <Container className="mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h1>Habit Tracker</h1>
         <Button onClick={() => setShowAddModal(true)}>Add Habit</Button>
