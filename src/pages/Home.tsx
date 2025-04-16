@@ -5,7 +5,7 @@ import { WidthProvider, Responsive } from "react-grid-layout";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 function Home() {
-  const { appointments, tasks, goals, setAppointments, setTasks, setGoals, habits, setHabits } = useAppData();
+  const { appointments, tasks, goals, setAppointments, setTasks, setGoals, habits } = useAppData();
 
   // Today’s date
   const todayStr = new Date().toISOString().split("T")[0];
