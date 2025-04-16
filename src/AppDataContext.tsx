@@ -43,17 +43,25 @@ interface AppDataContextType {
 
 const AppDataContext = createContext<AppDataContextType | undefined>(undefined);
 
-export function AppDataProvider({ children }: { children: ReactNode }) {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [goals, setGoals] = useState<Goal[]>([]);
-  const [habits, setHabits] = useState<Habit[]>([]);
+interface appDataProviderProps {
+  children: ReactNode,
+  appointments?: Appointment[],
+  tasks?: Task[],
+  goals?: Goal[],
+  habits?: Habit[]
+}
+
+export function AppDataProvider(props: appDataProviderProps) {
+  const [appointments, setAppointments] = useState<Appointment[]>(props.appointments ? props.appointments : []);
+  const [tasks, setTasks] = useState<Task[]>(props.tasks ? props.tasks : []);
+  const [goals, setGoals] = useState<Goal[]>(props.goals ? props.goals : []);
+  const [habits, setHabits] = useState<Habit[]>(props.habits ? props.habits : []);
 
   return (
     <AppDataContext.Provider
       value={{ appointments, setAppointments, tasks, setTasks, goals, setGoals, habits, setHabits }}
     >
-      {children}
+      {props.children}
     </AppDataContext.Provider>
   );
 }
