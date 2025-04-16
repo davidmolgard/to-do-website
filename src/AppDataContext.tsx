@@ -13,7 +13,8 @@ export interface Task {
   id: number;
   text: string;
   completed: boolean;
-  today: boolean;
+  dueDate?: string;
+  priority?: number; // 1 = High, 2 = Medium, 3 = Low
 }
 
 export interface Goal {
