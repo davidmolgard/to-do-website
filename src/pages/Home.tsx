@@ -5,7 +5,7 @@ import { WidthProvider, Responsive } from "react-grid-layout";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 function Home() {
-  const { appointments, tasks, goals, setAppointments, setTasks, setGoals } = useAppData();
+  const { appointments, tasks, goals, setAppointments, setTasks, setGoals, habits, setHabits } = useAppData();
 
   // Today’s date
   const todayStr = new Date().toISOString().split("T")[0];
@@ -32,9 +32,6 @@ function Home() {
     const bDate = new Date(b.dueDate ?? "9999-12-31");
     return aDate.getTime() - bDate.getTime();
   });
-  
-
-  const currentGoals = goals.slice(0, 3); // Show only top 3 goals for now
 
   // Modal to add a new task
   const handleAddTask = () => {
@@ -113,29 +110,34 @@ function Home() {
 
   const layouts = {
     xl: [
-      { i: "schedule", x: 0, y: 0, w: 8, h: 12, minH: 4 },
+      { i: "schedule", x: 0, y: 0, w: 5, h: 12, minH: 4, minW: 3 },
+      { i: "todo", x: 5, y: 0, w: 3, h: 12, minH: 2 },
       { i: "goals", x: 8, y: 0, w: 4, h: 5, minH: 2 },
-      { i: "todo", x: 8, y: 3, w: 4, h: 7, minH: 2 },
+			{ i: "habits", x: 8, y: 3, w: 4, h: 7, minH: 2 },
     ],
     lg: [
-      { i: "schedule", x: 0, y: 0, w: 6, h: 8, minH: 4 },
-      { i: "goals", x: 6, y: 0, w: 4, h: 4, minH: 2 },
-      { i: "todo", x: 6, y: 3, w: 4, h: 4, minH: 2 },
+      { i: "schedule", x: 0, y: 0, w: 4, h: 9, minH: 4, minW: 3 },
+      { i: "todo", x: 4, y: 0, w: 3, h: 9, minH: 4 },
+      { i: "goals", x: 7, y: 0, w: 3, h: 4, minH: 4 },
+			{ i: "habits", x: 7, y: 3, w: 3, h: 5, minH: 4 },
     ],
     md: [
-      { i: "schedule", x: 0, y: 0, w: 3, h: 8, minH: 4 },
-      { i: "goals", x: 3, y: 0, w: 3, h: 4, minH: 2 },
-      { i: "todo", x: 3, y: 3, w: 3, h: 4, minH: 2 },
+      { i: "schedule", x: 0, y: 0, w: 4, h: 7, minH: 4, minW: 3 },
+      { i: "todo", x: 4, y: 0, w: 2, h: 7, minH: 2 },
+			{ i: "habits", x: 0, y: 7, w: 3, h: 4, minH: 4 },
+      { i: "goals", x: 3, y: 7, w: 3, h: 4, minH: 2 },
     ],
     sm: [
-      { i: "schedule", x: 0, y: 0, w: 4, h: 5, minH: 4 },
-      { i: "goals", x: 0, y: 0, w: 2, h: 5, minH: 2 },
-      { i: "todo", x: 2, y: 3, w: 2, h: 5, minH: 2 },
+      { i: "schedule", x: 0, y: 0, w: 4, h: 6, minH: 4, minW: 3 },
+      { i: "todo", x: 0, y: 3, w: 2, h: 5, minH: 2 },
+      { i: "goals", x: 2, y: 0, w: 2, h: 5, minH: 2 },
+			{ i: "habits", x: 0, y: 11, w: 2, h: 4, minH: 4 },
     ],
     xs: [
-      { i: "schedule", x: 0, y: 0, w: 4, h: 5, minH: 4 },
+      { i: "schedule", x: 0, y: 0, w: 4, h: 7, minH: 4 },
       { i: "goals", x: 0, y: 5, w: 2, h: 5, minH: 2 },
       { i: "todo", x: 0, y: 10, w: 2, h: 5, minH: 2 },
+			{ i: "habits", x: 0, y: 15, w: 2, h: 4, minH: 4 },
     ],
   };
 
@@ -208,8 +210,8 @@ function Home() {
         <Card key="goals" className="goals shadow-sm">
           <Card.Header className="fw-bold drag-handle">Goals</Card.Header>
           <Card.Body>
-            {currentGoals.length > 0 ? (
-              currentGoals.map((goal) => {
+            {goals.length > 0 ? (
+              goals.map((goal) => {
                 const checked = goal.log[todayStr] ?? false;
                 return (
                   <div
@@ -245,7 +247,7 @@ function Home() {
               size="sm"
               variant="outline-dark"
               onClick={() => setShowAddGoalModal(true)} // Show the modal for adding a goal
-              className="float-end mt-2"
+              className="mt-2"
 							style={{width: "fit-content"}}
             >
 							<i className="bi bi-plus"></i>
@@ -290,6 +292,53 @@ function Home() {
             >
 							<i className="bi bi-plus"></i>
               Add Task
+            </Button>
+          </Card.Body>
+        </Card>
+
+				{/* Habits */}
+        <Card key="habits" className="habits shadow-sm">
+          <Card.Header className="fw-bold drag-handle">Habits</Card.Header>
+          <Card.Body>
+          {habits.length > 0 ? (
+              habits.map((habit) => {
+                const checked = habit.log[todayStr] ?? false;
+                return (
+                  <div
+                    key={habit.id}
+                    className="mb-2 d-flex justify-content-between align-items-center"
+                  >
+                    <span>{habit.name}</span>
+                    <div className="d-flex gap-2">
+                      <Button
+                        variant={checked ? "success" : "outline-secondary"}
+                        size="sm"
+                      >
+                        {checked ? "✓ Tracked" : "Track"}
+                      </Button>
+                      <Button
+                        variant="outline-danger"
+                        size="sm"
+                      >
+                        <i className="bi bi-trash"></i>
+                      </Button>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="d-flex justify-content-between">
+                <div className="text-muted">No habits yet</div>
+              </div>
+            )}
+            <Button
+              size="sm"
+              variant="outline-dark"
+              className="mt-2"
+							style={{width: "fit-content"}}
+            >
+							<i className="bi bi-plus"></i>
+              Add Habit
             </Button>
           </Card.Body>
         </Card>
