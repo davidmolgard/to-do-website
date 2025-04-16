@@ -41,7 +41,7 @@ function Home() {
     if (!newTaskText.trim()) return;
     setTasks([
       ...tasks,
-      { id: Date.now(), text: newTaskText, completed: false, today: true },
+      { id: Date.now(), text: newTaskText, completed: false},
     ]);
     setNewTaskText("");
     setShowAddTaskModal(false);
