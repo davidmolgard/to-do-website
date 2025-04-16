@@ -5,7 +5,7 @@ import { WidthProvider, Responsive } from "react-grid-layout";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 function Home() {
-  const { appointments, tasks, goals, setAppointments, setTasks, setGoals } = useAppData();
+  const { appointments, tasks, goals, setAppointments, setTasks, setGoals, habits, setHabits } = useAppData();
 
   // Today’s date
   const todayStr = new Date().toISOString().split("T")[0];
@@ -32,9 +32,6 @@ function Home() {
     const bDate = new Date(b.dueDate ?? "9999-12-31");
     return aDate.getTime() - bDate.getTime();
   });
-  
-
-  const currentGoals = goals.slice(0, 3); // Show only top 3 goals for now
 
   // Modal to add a new task
   const handleAddTask = () => {
@@ -213,8 +210,8 @@ function Home() {
         <Card key="goals" className="goals shadow-sm">
           <Card.Header className="fw-bold drag-handle">Goals</Card.Header>
           <Card.Body>
-            {currentGoals.length > 0 ? (
-              currentGoals.map((goal) => {
+            {goals.length > 0 ? (
+              goals.map((goal) => {
                 const checked = goal.log[todayStr] ?? false;
                 return (
                   <div
@@ -250,7 +247,7 @@ function Home() {
               size="sm"
               variant="outline-dark"
               onClick={() => setShowAddGoalModal(true)} // Show the modal for adding a goal
-              className="float-end mt-2"
+              className="mt-2"
 							style={{width: "fit-content"}}
             >
 							<i className="bi bi-plus"></i>
@@ -303,38 +300,45 @@ function Home() {
         <Card key="habits" className="habits shadow-sm">
           <Card.Header className="fw-bold drag-handle">Habits</Card.Header>
           <Card.Body>
-            {todayTasks.length > 0 ? (
-              <ListGroup>
-                {todayTasks.map((task) => (
-                  <ListGroup.Item
-                    key={task.id}
-                    style={{
-                      textDecoration: task.completed ? "line-through" : "none",
-                    }}
+          {habits.length > 0 ? (
+              habits.map((habit) => {
+                const checked = habit.log[todayStr] ?? false;
+                return (
+                  <div
+                    key={habit.id}
+                    className="mb-2 d-flex justify-content-between align-items-center"
                   >
-                    <input
-                      type="checkbox"
-                      checked={task.completed}
-                      onChange={() => handleTaskToggle(task.id)}
-                    />
-                    {task.text}
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
+                    <span>{habit.name}</span>
+                    <div className="d-flex gap-2">
+                      <Button
+                        variant={checked ? "success" : "outline-secondary"}
+                        size="sm"
+                      >
+                        {checked ? "✓ Tracked" : "Track"}
+                      </Button>
+                      <Button
+                        variant="outline-danger"
+                        size="sm"
+                      >
+                        <i className="bi bi-trash"></i>
+                      </Button>
+                    </div>
+                  </div>
+                );
+              })
             ) : (
               <div className="d-flex justify-content-between">
-                <div className="text-muted mb-2">No tasks for today</div>
+                <div className="text-muted">No habits yet</div>
               </div>
             )}
             <Button
               size="sm"
               variant="outline-dark"
-              onClick={() => setShowAddTaskModal(true)} // Show the modal for adding a task
               className="mt-2"
 							style={{width: "fit-content"}}
             >
 							<i className="bi bi-plus"></i>
-              Add Task
+              Add Habit
             </Button>
           </Card.Body>
         </Card>

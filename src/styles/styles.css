@@ -12038,7 +12038,7 @@ h1, .h1 {
   /* Styling for Add Goal and Add Task buttons, positioning them below the last item */
 }
 .homepage .layout {
-  max-height: 80vh;
+  padding-bottom: 20px;
 }
 .homepage .layout .react-grid-placeholder {
   background-color: #f3f08b;
@@ -12064,6 +12064,9 @@ h1, .h1 {
 }
 .homepage .schedule .card-header {
   background-color: #afdef9;
+}
+.homepage .habits .card-header {
+  background-color: #c4f4c7;
 }
 .homepage .schedule {
   position: relative; /* So that the add appointment button can be placed absolutely */
@@ -12119,19 +12122,27 @@ h1, .h1 {
   flex-direction: column;
   gap: 15px;
 }
-.homepage .goals .card-body, .homepage .todo .card-body {
+.homepage .goals .card-body,
+.homepage .habits .card-body,
+.homepage .todo .card-body {
   display: flex;
   flex-direction: column;
   gap: 10px;
   justify-content: flex-start;
 }
-.homepage .goals .d-flex.justify-content-between, .homepage .todo .d-flex.justify-content-between {
+.homepage .goals .d-flex.justify-content-between,
+.homepage .habits .d-flex.justify-content-between,
+.homepage .todo .d-flex.justify-content-between {
   margin-bottom: 15px;
 }
-.homepage .goals .d-flex.gap-2, .homepage .todo .d-flex.gap-2 {
+.homepage .goals .d-flex.gap-2,
+.homepage .habits .d-flex.gap-2,
+.homepage .todo .d-flex.gap-2 {
   align-items: center;
 }
-.homepage .goals .mt-2, .homepage .todo .mt-2 {
+.homepage .goals .mt-2,
+.homepage .habits .mt-2,
+.homepage .todo .mt-2 {
   margin-top: 20px;
 }
 .homepage .goals .card-header {
