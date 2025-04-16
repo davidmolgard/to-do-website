@@ -6,9 +6,6 @@ import {
   Button,
   ListGroup,
   Modal,
-  Row,
-  Col,
-	Table,
 	Card
 } from "react-bootstrap";
 

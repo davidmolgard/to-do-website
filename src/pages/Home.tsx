@@ -25,7 +25,14 @@ function Home() {
   const todayAppointments = appointments
     .filter((appt) => appt.date === todayStr)
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
-	const todayTasks = tasks.filter((task) => task.today && !task.completed);
+  const sortedTasks = tasks
+  .filter((task) => !task.completed)
+  .sort((a, b) => {
+    const aDate = new Date(a.dueDate ?? "9999-12-31");
+    const bDate = new Date(b.dueDate ?? "9999-12-31");
+    return aDate.getTime() - bDate.getTime();
+  });
+  
 
   const currentGoals = goals.slice(0, 3); // Show only top 3 goals for now
 
@@ -34,7 +41,7 @@ function Home() {
     if (!newTaskText.trim()) return;
     setTasks([
       ...tasks,
-      { id: Date.now(), text: newTaskText, completed: false, today: true },
+      { id: Date.now(), text: newTaskText, completed: false},
     ]);
     setNewTaskText("");
     setShowAddTaskModal(false);
@@ -256,9 +263,9 @@ function Home() {
         <Card key="todo" className="todo shadow-sm">
           <Card.Header className="fw-bold drag-handle">To-Do List</Card.Header>
           <Card.Body>
-            {todayTasks.length > 0 ? (
+            {sortedTasks.length > 0 ? (
               <ListGroup>
-                {todayTasks.map((task) => (
+                {sortedTasks.map((task) => (
                   <ListGroup.Item
                     key={task.id}
                     style={{

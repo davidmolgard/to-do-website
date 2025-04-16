@@ -3,7 +3,6 @@ import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import Schedule from "./pages/Schedule";
 import Login from "./pages/Login";
-import Goals from "./pages/Goals";
 import Habits from "./pages/Habits";
 import Todo from "./pages/Todo";
 
