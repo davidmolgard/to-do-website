@@ -160,13 +160,13 @@ function Todo() {
       <div className="mb-3">
         <ButtonGroup>
           <Button
-            variant={sortBy === "dueDate" ? "primary" : "outline-primary"}
+            variant={sortBy === "dueDate" ? "dark" : "outline-dark"}
             onClick={() => setSortBy("dueDate")}
           >
             Sort by Due Date
           </Button>
           <Button
-            variant={sortBy === "priority" ? "primary" : "outline-primary"}
+            variant={sortBy === "priority" ? "dark" : "outline-dark"}
             onClick={() => setSortBy("priority")}
           >
             Sort by Priority

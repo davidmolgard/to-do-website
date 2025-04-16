@@ -114,6 +114,12 @@
       flex-direction: column;
       gap: 10px;
       justify-content: flex-start;
+      overflow-y: scroll;
+    }
+
+    .react-resizable-handle.react-resizable-handle-se {
+      bottom: -5px;
+      right: -5px;
     }
 
     .d-flex.justify-content-between {
@@ -138,6 +144,11 @@
   .todo {
     .card-header {
       background-color: $accent-yellow;
+    }
+    .list-group-item {
+      input {
+        margin-right: 10px;
+      }
     }
   }
 }

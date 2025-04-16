@@ -82,13 +82,13 @@ function Schedule() {
           {viewMode === "week" && (
             <>
               <Button
-                variant="outline-secondary"
+                variant="outline-dark"
                 onClick={() => setWeekOffset((prev) => prev - 1)}
               >
                 ← Previous
               </Button>
               <Button
-                variant="outline-secondary"
+                variant="outline-dark"
                 onClick={() => setWeekOffset((prev) => prev + 1)}
               >
                 Next →

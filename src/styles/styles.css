@@ -12129,6 +12129,13 @@ h1, .h1 {
   flex-direction: column;
   gap: 10px;
   justify-content: flex-start;
+  overflow-y: scroll;
+}
+.homepage .goals .react-resizable-handle.react-resizable-handle-se,
+.homepage .habits .react-resizable-handle.react-resizable-handle-se,
+.homepage .todo .react-resizable-handle.react-resizable-handle-se {
+  bottom: -5px;
+  right: -5px;
 }
 .homepage .goals .d-flex.justify-content-between,
 .homepage .habits .d-flex.justify-content-between,
@@ -12150,6 +12157,9 @@ h1, .h1 {
 }
 .homepage .todo .card-header {
   background-color: #EBE4A4;
+}
+.homepage .todo .list-group-item input {
+  margin-right: 10px;
 }
 
 .react-draggable-transparent-selection {
