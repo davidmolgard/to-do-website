@@ -18,7 +18,7 @@ export const habitData: Habit[] = [
     name: "exercise",
     log: { [getStringDate(-1)]: true },
     type: "good"
-  },
+  }
 ];
 
 export const goalData: Goal[] = [
@@ -59,14 +59,14 @@ export const taskData: Task[] = [
     text: "Grocery shopping",
     completed: true,
     dueDate: getStringDate(0),
-    priority: 1
+    priority: 2
   },
   {
     id: 3,
     text: "Laundry",
     completed: false,
-    dueDate: getStringDate(0),
-    priority: 1
+    dueDate: undefined,
+    priority: 3
   },
 ];
 
@@ -126,6 +126,30 @@ export const apptData: Appointment[] = [
     endTime: "23:00",
     date: getStringDate(2),
     color: "orange"
+  },
+  {
+    id: 7,
+    title: "Lunch with mom",
+    startTime: "11:00",
+    endTime: "14:00",
+    date: getStringDate(7),
+    color: "purple"
+  },
+  {
+    id: 8,
+    title: "Hiking",
+    startTime: "9:00",
+    endTime: "10:00",
+    date: getStringDate(8),
+    color: "green"
+  },
+  {
+    id: 9,
+    title: "Gaming",
+    startTime: "22:00",
+    endTime: "23:00",
+    date: getStringDate(9),
+    color: "yellow"
   },
 ];
 
