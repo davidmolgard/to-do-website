@@ -31,7 +31,6 @@ interface Habit {
 function getCurrentStreak(log: { [date: string]: boolean }): number {
   let streak = 0;
   let date = new Date();
-
   while (true) {
     const dateStr = date.toISOString().split("T")[0];
     if (log[dateStr]) {
@@ -41,7 +40,6 @@ function getCurrentStreak(log: { [date: string]: boolean }): number {
     }
     date.setDate(date.getDate() - 1);
   }
-
   return streak;
 }
 
@@ -62,6 +60,10 @@ function Habits() {
   const [newHabit, setNewHabit] = useState("");
   const [newHabitType, setNewHabitType] = useState<"good" | "bad">("good");
   const [showAddModal, setShowAddModal] = useState(false);
+
+  const [editingHabit, setEditingHabit] = useState<Habit | null>(null);
+  const [editedName, setEditedName] = useState("");
+  const [editedType, setEditedType] = useState<"good" | "bad">("good");
 
   const todayStr = new Date().toISOString().split("T")[0];
 
@@ -93,23 +95,59 @@ function Habits() {
   };
 
   const renderHabitRow = (habit: Habit) => (
-    <ListGroup.Item style={{
-      backgroundColor: habit.type === "good" ? "#26ab7b" : "#ff6b6d",
-      borderLeft: habit.type === "good" ? "4px solid green" : "4px solid red",
-    }} key={habit.id} className="d-flex justify-content-between align-items-center">
+    <ListGroup.Item
+      style={{
+        backgroundColor: habit.type === "good" ? "#26ab7b" : "#ff6b6d",
+        borderLeft: habit.type === "good" ? "4px solid green" : "4px solid red",
+      }}
+      key={habit.id}
+      className="d-flex justify-content-between align-items-center"
+    >
       <div>
-        <strong >{habit.name}</strong>
+        <strong>{habit.name}</strong>
         <span className="ms-2">
           {habit.type === "good" ? "🔥" : "⚠️"} {getCurrentStreak(habit.log)}
         </span>
       </div>
-      <Button
-        variant={habit.log[todayStr] ? (habit.type === "good" ? "success" : "danger") : "outline-secondary"}
-        size="sm"
-        onClick={() => toggleToday(habit.id)}
-      >
-        {habit.log[todayStr] ? "✓" : "Mark"}
-      </Button>
+      <div className="d-flex gap-2">
+        <Button
+          variant={
+            habit.log[todayStr]
+              ? habit.type === "good"
+                ? "success"
+                : "danger"
+              : "outline-secondary"
+          }
+          size="sm"
+          onClick={() => toggleToday(habit.id)}
+        >
+          {habit.log[todayStr] ? "✓" : "Mark"}
+        </Button>
+        <Button
+          style={{ backgroundColor: "transparent", color: "black" }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffe066")}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+          size="sm"
+          onClick={() => {
+            setEditingHabit(habit);
+            setEditedName(habit.name);
+            setEditedType(habit.type);
+          }}
+          title="Edit"
+        >
+          ✏️
+        </Button>
+        <Button
+          style={{ backgroundColor: "transparent", color: "black" }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffe066")}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+          size="sm"
+          onClick={() => setHabits(habits.filter((h) => h.id !== habit.id))}
+          title="Delete"
+        >
+          🗑️
+        </Button>
+      </div>
     </ListGroup.Item>
   );
 
@@ -117,7 +155,9 @@ function Habits() {
     const history = getHistory(habit.log);
     return (
       <div key={habit.id} className="mt-2 mb-3">
-        <div><strong>{habit.name}</strong> (Past 7 Days)</div>
+        <div>
+          <strong>{habit.name}</strong> (Past 7 Days)
+        </div>
         <div className="d-flex gap-2 mt-1">
           {history.map((day) => (
             <div
@@ -140,15 +180,15 @@ function Habits() {
     );
   };
 
-  const goodHabits = habits.filter(h => h.type === "good");
-  const badHabits = habits.filter(h => h.type === "bad");
+  const goodHabits = habits.filter((h) => h.type === "good");
+  const badHabits = habits.filter((h) => h.type === "bad");
 
   const getChartData = (filterType: "good" | "bad") => {
     return habits
-      .filter(h => h.type === filterType)
-      .map(habit => {
+      .filter((h) => h.type === filterType)
+      .map((habit) => {
         const history = getHistory(habit.log);
-        const count = history.filter(h => h.checked).length;
+        const count = history.filter((h) => h.checked).length;
         return { name: habit.name, count };
       });
   };
@@ -157,7 +197,12 @@ function Habits() {
     <Container className="mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h1>Habit Tracker</h1>
-        <Button style={{ backgroundColor: "#8fd3fe", fontWeight: "bold" }} onClick={() => setShowAddModal(true)}>Add Habit</Button>
+        <Button
+          style={{ backgroundColor: "#8fd3fe", fontWeight: "bold" }}
+          onClick={() => setShowAddModal(true)}
+        >
+          Add Habit
+        </Button>
       </div>
 
       <Row>
@@ -185,7 +230,7 @@ function Habits() {
           <Col md={6}>
             <h6>Good Habits</h6>
             <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={getChartData("good")}> 
+              <BarChart data={getChartData("good")}>
                 <XAxis dataKey="name" />
                 <YAxis allowDecimals={false} />
                 <Tooltip />
@@ -197,7 +242,7 @@ function Habits() {
           <Col md={6}>
             <h6>Bad Habits</h6>
             <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={getChartData("bad")}> 
+              <BarChart data={getChartData("bad")}>
                 <XAxis dataKey="name" />
                 <YAxis allowDecimals={false} />
                 <Tooltip />
@@ -209,6 +254,7 @@ function Habits() {
         </Row>
       </div>
 
+      {/* Add Habit Modal */}
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Add New Habit</Modal.Title>
@@ -241,6 +287,55 @@ function Habits() {
           </Button>
           <Button variant="primary" onClick={addHabit}>
             Add Habit
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Edit Habit Modal */}
+      <Modal show={!!editingHabit} onHide={() => setEditingHabit(null)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Habit</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Control
+            type="text"
+            value={editedName}
+            onChange={(e) => setEditedName(e.target.value)}
+            className="mb-3"
+          />
+          <ToggleButtonGroup
+            type="radio"
+            name="editType"
+            value={editedType}
+            onChange={(val: "good" | "bad") => setEditedType(val)}
+          >
+            <ToggleButton id="edit-good" value="good" variant="outline-success">
+              Good
+            </ToggleButton>
+            <ToggleButton id="edit-bad" value="bad" variant="outline-danger">
+              Bad
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setEditingHabit(null)}>
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              if (!editingHabit) return;
+              setHabits(
+                habits.map((h) =>
+                  h.id === editingHabit.id
+                    ? { ...h, name: editedName, type: editedType }
+                    : h
+                )
+              );
+              setEditingHabit(null);
+            }}
+          >
+            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
