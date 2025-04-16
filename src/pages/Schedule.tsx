@@ -5,7 +5,7 @@ import WeekView from "../components/WeekView";
 import MonthView from "../components/MonthView";
 
 function Schedule() {
-  const { appointments, setAppointments } = useAppData();
+  const { setAppointments } = useAppData();
 
   const [weekOffset, setWeekOffset] = useState(0);
   const [viewMode, setViewMode] = useState<"week" | "month">("week");
